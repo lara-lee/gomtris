@@ -23,7 +23,7 @@ const CONFIG = {
   PIECE_BEAR: {
     I: 'blue', J: 'blue', O: 'yellow', T: 'pink', S: 'green', Z: 'orange', L: 'orange',
   },
-  DEFAULT_BEAR: 'pink',   // 아직 줄을 못 지웠을 때 기본 곰
+  DEFAULT_BEAR: 'white',  // 아직 줄을 못 지웠을 때 기본 곰 (하얀곰)
 
   STORAGE_KEY: 'tetris.highScore',
 };
