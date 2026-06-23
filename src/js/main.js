@@ -112,7 +112,7 @@ window.addEventListener('DOMContentLoaded', () => {
   (function () {
     const el = $('visitors');
     if (!el) return;
-    fetch('https://abacus.jasoncameron.dev/hit/gomtris-lee/visits')
+    fetch('https://abacus.jasoncameron.dev/hit/gomtris-lee/visits2')
       .then((r) => r.json())
       .then((d) => {
         const n = d && (typeof d.value === 'number' ? d.value : d.count);
