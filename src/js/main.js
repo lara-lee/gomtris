@@ -86,6 +86,17 @@ window.addEventListener('DOMContentLoaded', () => {
   });
   $pauseBtn.addEventListener('click', () => game.togglePause());
 
+  // 나가기(우상단) → 타이틀로 복귀 + 소리 정지
+  const $exitBtn = $('exit-btn');
+  if ($exitBtn) $exitBtn.addEventListener('click', () => game.quit());
+
+  // 앱/탭이 숨겨지거나(백그라운드) 닫힐 때 소리 멈춤
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) { game.pauseForBlur(); Sound.suspend(); }
+    else { Sound.resume(); }
+  });
+  window.addEventListener('pagehide', () => Sound.stopBgm());
+
   if ($helpBtn) $helpBtn.addEventListener('click', () => ui.toggleHelp());
   if ($muteBtn) $muteBtn.addEventListener('click', () => ui.toggleMute());
 

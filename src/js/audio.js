@@ -85,6 +85,15 @@ const Sound = {
   },
   setBgmRate(rate) { if (this.bgm) { try { this.bgm.playbackRate = rate; } catch (e) {} } },
 
+  // 앱/탭이 숨겨지거나 닫힐 때: 모든 소리 멈춤
+  suspend() {
+    this.pauseBgm();
+    try { if (this.ctx && this.ctx.state === 'running') this.ctx.suspend(); } catch (e) {}
+  },
+  resume() {
+    try { if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume(); } catch (e) {}
+  },
+
   toggleMute() {
     this.enabled = !this.enabled;
     this._applyBgm();

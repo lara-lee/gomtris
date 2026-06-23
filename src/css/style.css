@@ -74,6 +74,13 @@ h1 {
   color: var(--muted); display: none;
 }
 .visitors.show { display: block; }
+/* 우측 최상단 나가기 버튼 */
+.exit-btn {
+  position: absolute; top: 10px; right: 12px; z-index: 5;
+  font-size: .58rem; padding: 5px 9px; letter-spacing: .5px;
+  background: #fff;
+}
+.exit-btn:hover { background: var(--ink); color: #fff; }
 
 /* ===== 레이아웃 ===== */
 .layout { display: flex; gap: 18px; align-items: flex-start; }
@@ -342,10 +349,6 @@ kbd {
   font-size: .8rem; padding: 3px 8px;
 }
 
-/* ===== 모바일 터치 패드 ===== */
-.touchpad { display: none; gap: 8px; flex-wrap: wrap; justify-content: center; max-width: 360px; }
-.touchpad button { flex: 1 1 30%; padding: 14px 0; }
-
 /* ===== 모바일 레이아웃 정리 (≤720px) ===== */
 @media (max-width: 720px) {
   body {
@@ -376,9 +379,6 @@ kbd {
 
   .toolbar { margin-top: 10px; padding-top: 10px; gap: 6px; }
   .toolbar button { font-size: .62rem; padding: 7px 10px; }
-
-  .touchpad { display: flex; margin-top: 2px; max-width: none; width: 100%; }
-  .touchpad button { flex: 1 1 30%; padding: 13px 0; font-size: .85rem; }
 }
 
 /* =========================================================

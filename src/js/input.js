@@ -27,15 +27,5 @@ function bindInput(game, ui) {
 
   // 창 포커스 잃으면 자동 일시정지
   window.addEventListener('blur', () => game.pauseForBlur());
-
-  // ---- 화면 버튼(모바일) ----
-  const btn = (id, fn) => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('click', fn);
-  };
-  btn('btn-left', () => game.move(-1));
-  btn('btn-right', () => game.move(1));
-  btn('btn-down', () => game.softDrop());
-  btn('btn-rotate', () => game.rotate(1));
-  btn('btn-drop', () => game.hardDrop());
+  // (모바일 조작은 touch.js 의 제스처 — 화면 버튼 패드는 제거됨)
 }

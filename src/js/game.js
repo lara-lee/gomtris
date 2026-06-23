@@ -157,6 +157,13 @@ class Game {
     this._render();
   }
 
+  // 게임 나가기 → 타이틀(시작 화면)로, 소리 정지
+  quit() {
+    Sound.stopBgm();
+    this._reset();     // 보드 초기화 + idle 상태
+    this._render();
+  }
+
   // 창 포커스를 잃으면 자동 일시정지
   pauseForBlur() {
     if (this.running && !this.paused && !this.over && !this.counting) {
