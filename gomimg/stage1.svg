@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 150" width="120" height="150">
+  <defs>
+    <radialGradient id="bear" cx="38%" cy="28%" r="80%">
+      <stop offset="0%" stop-color="#ffe8b0"/>
+      <stop offset="60%" stop-color="#f7b94e"/>
+      <stop offset="100%" stop-color="#ef9f2e"/>
+    </radialGradient>
+    <radialGradient id="belly" cx="40%" cy="30%" r="75%">
+      <stop offset="0%" stop-color="#fff6df"/>
+      <stop offset="100%" stop-color="#ffdf9e"/>
+    </radialGradient>
+  </defs>
+  <g transform="translate(60 150) scale(1.000) translate(-60 -150)">
+    
+    
+    <!-- 그림자 -->
+    <ellipse cx="60" cy="139" rx="30" ry="6" fill="#000" opacity="0.10"/>
+    <!-- 팔 -->
+    <ellipse cx="27" cy="96" rx="10" ry="13" fill="url(#bear)" stroke="#6b4a22" stroke-width="2.2"/>
+    <ellipse cx="93" cy="96" rx="10" ry="13" fill="url(#bear)" stroke="#6b4a22" stroke-width="2.2"/>
+    <!-- 다리 -->
+    <ellipse cx="45" cy="130" rx="12" ry="10" fill="url(#bear)" stroke="#6b4a22" stroke-width="2.2"/>
+    <ellipse cx="75" cy="130" rx="12" ry="10" fill="url(#bear)" stroke="#6b4a22" stroke-width="2.2"/>
+    <!-- 몸통 -->
+    <ellipse cx="60" cy="102" rx="34" ry="30" fill="url(#bear)" stroke="#6b4a22" stroke-width="2.4"/>
+    <!-- 배 -->
+    <ellipse cx="60" cy="106" rx="20" ry="18" fill="url(#belly)"/>
+    <!-- 귀 -->
+    <circle cx="40" cy="30" r="11" fill="url(#bear)" stroke="#6b4a22" stroke-width="2.2"/>
+    <circle cx="80" cy="30" r="11" fill="url(#bear)" stroke="#6b4a22" stroke-width="2.2"/>
+    <circle cx="40" cy="30" r="5" fill="url(#belly)"/>
+    <circle cx="80" cy="30" r="5" fill="url(#belly)"/>
+    <!-- 머리 -->
+    <circle cx="60" cy="50" r="26" fill="url(#bear)" stroke="#6b4a22" stroke-width="2.4"/>
+    <!-- 주둥이 -->
+    <ellipse cx="60" cy="59" rx="13" ry="10" fill="url(#belly)"/>
+    <!-- 볼터치 -->
+    <ellipse cx="42" cy="56" rx="5" ry="3.4" fill="#ff8fb0" opacity="0.55"/>
+    <ellipse cx="78" cy="56" rx="5" ry="3.4" fill="#ff8fb0" opacity="0.55"/>
+    <!-- 코 -->
+    <ellipse cx="60" cy="53" rx="4" ry="3" fill="#5b3b16"/>
+    <!-- 입 -->
+    <path d="M60 56 Q56 60 53 57 M60 56 Q64 60 67 57" fill="none" stroke="#5b3b16" stroke-width="1.6" stroke-linecap="round"/>
+    <!-- 눈 -->
+    <circle cx="50" cy="46" r="3.4" fill="#33240f"/>
+    <circle cx="70" cy="46" r="3.4" fill="#33240f"/>
+    <circle cx="51.2" cy="44.8" r="1.1" fill="#fff"/>
+    <circle cx="71.2" cy="44.8" r="1.1" fill="#fff"/>
+    
+    
+  </g>
+</svg>
