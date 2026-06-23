@@ -1,7 +1,7 @@
 /* sw.js — Gomtris 서비스워커 (오프라인 캐시 + 설치형 PWA)
  * 앱 쉘을 캐시해 두고, 오프라인에서도 실행되게 함.
  */
-const CACHE = 'gomtris-v1';
+const CACHE = 'gomtris-v2';
 
 const ASSETS = [
   './',
@@ -18,12 +18,12 @@ const ASSETS = [
   './src/js/input.js',
   './src/js/touch.js',
   './src/js/main.js',
-  './gomimg/pink.png',
-  './gomimg/orange.png',
-  './gomimg/yellow.png',
-  './gomimg/green.png',
-  './gomimg/blue.png',
-  './gomimg/white.png',
+  './assets/gomimg/pink.png',
+  './assets/gomimg/orange.png',
+  './assets/gomimg/yellow.png',
+  './assets/gomimg/green.png',
+  './assets/gomimg/blue.png',
+  './assets/gomimg/white.png',
   './icon-192.png',
   './icon-512.png',
 ];

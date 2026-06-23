@@ -19,7 +19,7 @@ const CONFIG = {
   SCORE_TABLE: { 1: 100, 2: 300, 3: 500, 4: 800 },
   HARD_DROP_BONUS: 2,  // 하드 드롭 시 내려간 칸 당 점수
 
-  // 블록(테트로미노) → 곰 색(=gomimg/<색>.png). 줄을 지운 블록의 색 곰이 등장
+  // 블록(테트로미노) → 곰 색(=assets/gomimg/<색>.png). 2단계 진입 시 그 색으로 고정
   PIECE_BEAR: {
     I: 'blue', J: 'blue', O: 'yellow', T: 'pink', S: 'green', Z: 'orange', L: 'orange',
   },

@@ -1,5 +1,5 @@
 /* jellybear.js — 보드 밖(포스터 여백)을 돌아다니는 젤리곰
- *  · 색 = 가장 최근에 줄을 지운 블록의 색 (랜덤 아님, gomimg/<색>.png)
+ *  · 색 = 2단계(10줄) 진입 시 그 블록 색으로 고정 (assets/gomimg/<색>.png)
  *  · 크기 = 곰 단계( floor(줄/10)+1, 1~11 ) → 1단계 작게 ~ 11단계 크게
  *  · 카운터 = 한 판에서 지운 줄 수 (새 판이면 1단계·기본색)
  */
@@ -32,7 +32,7 @@ class JellyBear {
     // 색 바뀜 → 그 색 곰을 띄움(팝)
     if (color && color !== this.color) {
       this.color = color;
-      this.img.src = `gomimg/${color}.png`;
+      this.img.src = `assets/gomimg/${color}.png`;
       this._pop();
       if (typeof Sound !== 'undefined' && this.curStage !== null) Sound.play('jelly');
     }
