@@ -1,0 +1,348 @@
+/* style.css — Gomtris : Y2K 포스터 테마 (각진 외곽선 · 그림자 없음)
+ * 흰 배경 + 두꺼운 검정 외곽선 + 네온 블록, 보드 뒤에 젤리곰
+ */
+:root {
+  --cell: 30px;
+  --preview-cell: 22px;
+  --ink: #000;
+  --paper: #f4f3ec;
+  --board-bg: #fbfbf6;
+  --card: #ffffff;
+  --muted: #6b6b6b;
+  --accent: #ff2d9b;
+  --accent2: #00e0ff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+  font-family: "Arial Black", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(var(--accent2) 1.5px, transparent 1.6px),
+    radial-gradient(var(--accent) 1.5px, transparent 1.6px);
+  background-size: 28px 28px, 28px 28px;
+  background-position: 0 0, 14px 14px;
+}
+
+/* ===== 제목 ===== */
+h1 {
+  margin: 0;
+  font-size: 2.4rem;
+  letter-spacing: 4px;
+  font-weight: 900;
+  background: linear-gradient(90deg,#ff2d9b,#ffe600,#00e0ff,#7a5cff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--ink);
+}
+.subtitle {
+  margin: -6px 0 0;
+  font-size: .72rem;
+  letter-spacing: 3px;
+  font-weight: 900;
+  color: var(--ink);
+  background: #ffe600;
+  border: 2px solid var(--ink);
+  padding: 4px 12px;
+  text-transform: uppercase;
+}
+
+/* ===== 레이아웃 ===== */
+.layout { display: flex; gap: 18px; align-items: flex-start; }
+.side { display: flex; flex-direction: column; gap: 14px; width: 150px; }
+
+.panel {
+  background: var(--card);
+  border: 3px solid var(--ink);
+  padding: 12px;
+}
+.panel h2 {
+  margin: 0 0 8px;
+  font-size: .72rem;
+  letter-spacing: 1px;
+  color: var(--ink);
+  text-transform: uppercase;
+  background: var(--accent2);
+  border: 2px solid var(--ink);
+  padding: 2px 8px;
+  display: inline-block;
+}
+.stat { font-size: 1.5rem; font-weight: 900; }
+.stat.small { font-size: 1.1rem; }
+
+/* ===== 격자 (보드 + 미리보기) ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--cell));
+  grid-template-rows: repeat(var(--rows), var(--cell));
+  background-color: var(--board-bg);
+  background-image:
+    linear-gradient(#d9d9cf 1px, transparent 1px),
+    linear-gradient(90deg, #d9d9cf 1px, transparent 1px);
+  background-size: var(--cell) var(--cell);
+}
+#board {
+  position: relative;
+  z-index: 1;
+  background-color: transparent;   /* 빈 칸으로 뒤의 젤리곰이 비쳐 보이게 */
+  border: 4px solid var(--ink);
+  touch-action: none;
+  user-select: none;
+}
+.preview {
+  --cell: var(--preview-cell);
+  justify-content: center;
+  border: 2px solid var(--ink);
+  margin: 0 auto;
+}
+.cell { width: var(--cell); height: var(--cell); }
+
+/* ===== Y2K 스티커 블록 (각진, 그림자 없음) ===== */
+.block {
+  border: 2px solid var(--ink);
+  box-shadow:
+    inset 3px 3px 0 rgba(255,255,255,0.7),
+    inset -3px -3px 0 rgba(0,0,0,0.18);   /* 입체용 내부 음영(외부 그림자 아님) */
+}
+.block.ghost {
+  background: transparent !important;
+  border: 2px dashed var(--ink);
+  box-shadow: none;
+  opacity: 0.55;
+}
+.cell.clearing {
+  animation: flash 0.28s steps(2, start) 2;
+  background: var(--ink) !important;
+  border-color: var(--ink) !important;
+}
+@keyframes flash { 0%,100% { opacity: 1; } 50% { opacity: 0.1; } }
+
+/* 네온 7색 */
+.I { background:#00e0ff; }
+.O { background:#ffe600; }
+.T { background:#d400ff; }
+.S { background:#6eff00; }
+.Z { background:#ff2d6f; }
+.J { background:#2b6bff; }
+.L { background:#ff8a00; }
+
+/* ===== 보드 래퍼 + 젤리곰 무대 ===== */
+.board-wrap { position: relative; }
+#bear-stage {
+  position: absolute;
+  inset: 4px;                 /* 보드 테두리 안쪽 */
+  overflow: hidden;
+  z-index: 0;
+  background: var(--board-bg);
+}
+
+/* ===== 보드 오버레이 ===== */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.85);
+  text-align: center;
+  padding: 20px;
+}
+.overlay.show { display: flex; }
+.overlay h3 {
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: var(--accent);
+  -webkit-text-stroke: 2px var(--ink);
+}
+.overlay p {
+  margin: 0;
+  color: var(--ink);
+  font-size: .82rem;
+  background: #ffe600;
+  border: 2px solid var(--ink);
+  padding: 4px 12px;
+}
+
+/* ===== 버튼 (각진, 그림자 없음) ===== */
+button {
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 900;
+  border: 3px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+  padding: 10px 16px;
+  font-size: .9rem;
+  transition: transform .08s, background .12s;
+}
+button:hover { background: #ffe600; }
+button:active { transform: translate(1px,1px); }
+button:disabled { opacity: 0.45; cursor: default; transform: none; background: #fff; }
+.primary { background: var(--accent); color: #fff; }
+.primary:hover { background: #ff5cb0; }
+#mute-btn.off { background: #ddd; color: var(--muted); }
+
+/* 키 표시 */
+kbd {
+  background: #ffe600;
+  border: 2px solid var(--ink);
+  padding: 1px 6px;
+  font-size: .72rem;
+  font-family: inherit;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+/* ===== 난이도 ===== */
+.difficulty { display: flex; align-items: center; gap: 8px; }
+.diff-label {
+  font-size: .72rem; font-weight: 900; text-transform: uppercase;
+  background: var(--ink); color: #fff; padding: 5px 10px;
+}
+.difficulty button { padding: 8px 18px; }
+.difficulty button.active { background: var(--accent); color: #fff; }
+
+/* ===== 컨트롤 바 ===== */
+.controls-bar { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+/* ===== 도움말 오버레이 ===== */
+.help-overlay {
+  position: fixed; inset: 0; display: none;
+  align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.55);
+  z-index: 100; padding: 20px; cursor: pointer;
+}
+.help-overlay.show { display: flex; }
+.help-card {
+  background: var(--card);
+  border: 4px solid var(--ink);
+  padding: 26px 30px;
+  max-width: 560px; width: 100%;
+}
+.help-card h3 {
+  margin: 0 0 18px; font-weight: 900; letter-spacing: 1px;
+  display: inline-block; background: #ffe600;
+  border: 2px solid var(--ink); padding: 4px 12px;
+}
+.help-cols { display: flex; gap: 28px; flex-wrap: wrap; }
+.help-cols > div { flex: 1 1 220px; }
+.help-cols h4 { margin: 0 0 8px; font-size: .85rem; }
+.help-cols ul { margin: 0; padding-left: 4px; list-style: none; }
+.help-cols li { font-size: .8rem; color: #333; margin: 8px 0; line-height: 1.5; font-weight: 700; }
+.help-cols b { color: var(--ink); }
+.help-close { text-align: center; color: var(--muted); font-size: .75rem; margin: 20px 0 0; font-weight: 700; }
+
+/* ===== 모바일 터치 패드 ===== */
+.touchpad { display: none; gap: 8px; flex-wrap: wrap; justify-content: center; max-width: 360px; }
+.touchpad button { flex: 1 1 30%; padding: 14px 0; }
+@media (max-width: 720px) {
+  .layout { flex-direction: column; align-items: center; }
+  .side { flex-direction: row; width: auto; flex-wrap: wrap; justify-content: center; }
+  .touchpad { display: flex; }
+}
+
+/* =========================================================
+   젤리곰 (보드 뒤에서 걸어다님) — 캐릭터라 둥글게 유지
+   ========================================================= */
+.bear-walker {
+  position: absolute;
+  bottom: 8%;
+  left: 6%;
+  animation: walk 11s ease-in-out infinite;
+}
+.bear-face { animation: face 11s steps(1) infinite; }
+
+.bear {
+  position: relative;
+  width: 60px;
+  height: 70px;
+  transform: scale(var(--bear-scale, 1));
+  transform-origin: bottom center;
+  transition: transform .5s cubic-bezier(.2,.9,.3,1.3);
+}
+.bear.pop { animation: pop .5s ease; }
+
+/* 곰 몸체 (젤리/구미 느낌) */
+.bear-body, .bear-head, .bear-ear, .bear-arm, .bear-leg {
+  position: absolute;
+  background: radial-gradient(circle at 38% 30%, #ffe39a, #ffb13b);
+  border: 2px solid rgba(0,0,0,0.28);
+}
+.bear-head { top: 0; left: 50%; width: 42px; height: 38px; transform: translateX(-50%); border-radius: 50% 50% 46% 46%; z-index: 3; }
+.bear-body { bottom: 0; left: 50%; width: 50px; height: 46px; transform: translateX(-50%); border-radius: 46% 46% 42% 42%; z-index: 2; }
+.bear-ear { top: -3px; width: 18px; height: 18px; border-radius: 50%; z-index: 2; }
+.bear-ear.left { left: 5px; }
+.bear-ear.right { right: 5px; }
+.bear-arm { top: 36px; width: 16px; height: 20px; border-radius: 50%; z-index: 1; }
+.bear-arm.left { left: 0; }
+.bear-arm.right { right: 0; }
+.bear-leg { bottom: -3px; width: 18px; height: 16px; border-radius: 50%; z-index: 1; }
+.bear-leg.left { left: 8px; }
+.bear-leg.right { right: 8px; }
+
+.bear-eye { position: absolute; top: 14px; width: 5px; height: 7px; background: #3a2a12; border-radius: 50%; z-index: 4; }
+.bear-eye.left { left: 21px; }
+.bear-eye.right { right: 21px; }
+.bear-snout { position: absolute; top: 22px; left: 50%; transform: translateX(-50%); width: 16px; height: 11px; background: #fff3d6; border: 2px solid rgba(0,0,0,0.22); border-radius: 50%; z-index: 4; }
+
+/* 젤리 (10줄마다 하나씩, 색이 실제로 섞임) */
+.jellies { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.jelly {
+  position: absolute;
+  width: 18px; height: 18px;
+  margin: -9px 0 0 -9px;       /* 중심 정렬 */
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.85), var(--c) 65%);
+  mix-blend-mode: multiply;    /* 겹치면 물감처럼 섞임 */
+}
+.jelly.fly { animation: jellyFly .55s cubic-bezier(.2,.8,.2,1); }
+
+/* 황제(100줄) 왕관 */
+.crown {
+  position: absolute;
+  top: -16px; left: 50%;
+  width: 26px; height: 14px;
+  transform: translateX(-50%);
+  background: #ffd400;
+  border: 2px solid var(--ink);
+  clip-path: polygon(0 100%, 0 35%, 25% 70%, 50% 0, 75% 70%, 100% 35%, 100% 100%);
+  display: none;
+  z-index: 5;
+}
+.bear[data-form="emperor"] .crown { display: block; }
+.bear[data-form="emperor"] { filter: drop-shadow(0 0 6px #ffd400); }
+
+@keyframes walk {
+  0%   { left: 6%;  bottom: 8%; }
+  25%  { left: 36%; bottom: 11%; }
+  50%  { left: 70%; bottom: 8%; }
+  75%  { left: 36%; bottom: 11%; }
+  100% { left: 6%;  bottom: 8%; }
+}
+@keyframes face {
+  0%, 49.9% { transform: scaleX(1); }
+  50%, 100% { transform: scaleX(-1); }
+}
+@keyframes pop {
+  0%, 100% { transform: scale(var(--bear-scale, 1)); }
+  40%      { transform: scale(calc(var(--bear-scale, 1) * 1.3)); }
+}
+@keyframes jellyFly {
+  0%   { transform: translate(var(--fromx, -120px), -170%) scale(.2); opacity: 0; }
+  70%  { opacity: 1; }
+  100% { transform: translate(0, 0) scale(1); opacity: 1; }
+}
