@@ -2,9 +2,18 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Gomtris — 곰트릭스 · LEE Edition</title>
 <link rel="stylesheet" href="src/css/style.css">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff2e88">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Gomtris">
+<link rel="apple-touch-icon" href="icon-192.png">
 </head>
 <body>
   <div class="poster">
@@ -137,5 +146,14 @@
   <script src="src/js/input.js"></script>
   <script src="src/js/touch.js"></script>
   <script src="src/js/main.js"></script>
+
+  <!-- 서비스워커 등록 (PWA 오프라인/설치). file:// 에선 조용히 무시 -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sw.js').catch(function () {});
+      });
+    }
+  </script>
 </body>
 </html>

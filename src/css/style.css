@@ -311,10 +311,40 @@ kbd {
 /* ===== 모바일 터치 패드 ===== */
 .touchpad { display: none; gap: 8px; flex-wrap: wrap; justify-content: center; max-width: 360px; }
 .touchpad button { flex: 1 1 30%; padding: 14px 0; }
+
+/* ===== 모바일 레이아웃 정리 (≤720px) ===== */
 @media (max-width: 720px) {
-  .layout { flex-direction: column; align-items: center; }
-  .side { flex-direction: row; width: auto; flex-wrap: wrap; justify-content: center; }
-  .touchpad { display: flex; }
+  body {
+    padding: 8px;
+    gap: 8px;
+    /* 보드를 화면 높이에 맞춰 축소 (너비·높이 중 작은 값) */
+    --cell: min(8.4vw, 3vh);
+    --preview-cell: 12px;
+  }
+  .poster { padding: 10px 10px 12px; border-width: 3px; }
+  .poster-header { padding-bottom: 8px; margin-bottom: 10px; gap: 8px; }
+  h1 { font-size: 1.5rem; letter-spacing: 2px; -webkit-text-stroke-width: 1.5px; }
+  .tag { font-size: .5rem; padding: 3px 6px; }
+
+  .layout { flex-direction: column; align-items: center; gap: 8px; }
+  /* 정보 패널: 보드 위·아래로 한 줄씩 컴팩트하게 */
+  .side {
+    flex-direction: row; width: 100%; flex-wrap: wrap;
+    justify-content: center; gap: 6px;
+  }
+  .panel { padding: 5px 9px; min-width: 64px; }
+  .panel h2 { font-size: .52rem; margin-bottom: 3px; padding-bottom: 3px; letter-spacing: .5px; }
+  .stat { font-size: 1.05rem; }
+  .stat.small { font-size: .85rem; }
+  .gom-max { font-size: .7rem; }
+  /* HOLD/NEXT 미리보기 라벨과 격자 가로 배치로 높이 절약 */
+  .preview { margin-top: 2px; }
+
+  .toolbar { margin-top: 10px; padding-top: 10px; gap: 6px; }
+  .toolbar button { font-size: .62rem; padding: 7px 10px; }
+
+  .touchpad { display: flex; margin-top: 2px; max-width: none; width: 100%; }
+  .touchpad button { flex: 1 1 30%; padding: 13px 0; font-size: .85rem; }
 }
 
 /* =========================================================
