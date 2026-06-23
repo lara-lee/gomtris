@@ -67,6 +67,13 @@ h1 {
   color: #fff;
   padding: 4px 8px;
 }
+/* 좌측 최상단 접속자 수 */
+.visitors {
+  position: absolute; top: 12px; left: 14px; z-index: 2;
+  font-size: .64rem; font-weight: 900; letter-spacing: .5px;
+  color: var(--muted); display: none;
+}
+.visitors.show { display: block; }
 
 /* ===== 레이아웃 ===== */
 .layout { display: flex; gap: 18px; align-items: flex-start; }

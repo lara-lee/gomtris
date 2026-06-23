@@ -111,6 +111,22 @@ window.addEventListener('DOMContentLoaded', () => {
     if (closeBtn) closeBtn.addEventListener('click', closeHelp);      // ✕ 버튼 → 닫기
   }
 
+  // 좌측 최상단 접속자 수 (무료 카운터 API · 실패 시 숨김)
+  (function () {
+    const el = $('visitors');
+    if (!el) return;
+    fetch('https://abacus.jasoncameron.dev/hit/gomtris-lee/visits')
+      .then((r) => r.json())
+      .then((d) => {
+        const n = d && (typeof d.value === 'number' ? d.value : d.count);
+        if (typeof n === 'number') {
+          el.textContent = '👥 ' + n.toLocaleString();
+          el.classList.add('show');
+        }
+      })
+      .catch(() => {});
+  })();
+
   // 초기 렌더 (시작 전 빈 보드 + 타이틀)
   game._render();
 });

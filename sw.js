@@ -1,7 +1,7 @@
 /* sw.js — Gomtris 서비스워커 (오프라인 캐시 + 설치형 PWA)
  * 앱 쉘을 캐시해 두고, 오프라인에서도 실행되게 함.
  */
-const CACHE = 'gomtris-v2';
+const CACHE = 'gomtris-v3';
 
 const ASSETS = [
   './',
@@ -47,6 +47,8 @@ self.addEventListener('activate', (e) => {
 // 요청: 캐시 우선, 없으면 네트워크(가져온 건 캐시에 저장 — 예: bgm.mp3)
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
+  // 외부(교차 출처) 요청은 캐시하지 않고 네트워크로 (예: 접속자 카운터)
+  if (new URL(e.request.url).origin !== self.location.origin) return;
   e.respondWith(
     caches.match(e.request).then((hit) => {
       return hit || fetch(e.request).then((res) => {
