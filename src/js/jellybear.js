@@ -1,22 +1,16 @@
-/* jellybear.js — 보드 밖(포스터 여백)을 돌아다니는 젤리곰 성장 시스템
- *  · 단계 = floor(지운 줄 / 10) + 1, 1~11단계
- *  · 단계마다 색이 바뀌고 점점 커짐. 11단계는 주황 히어로곰(gom1) + 글로우
- *  · 카운터 = 한 판에서 지운 줄 수 (새 판이면 1단계부터)
+/* jellybear.js — 보드 밖(포스터 여백)을 돌아다니는 젤리곰
+ *  · 색 = 가장 최근에 줄을 지운 블록의 색 (랜덤 아님, gomimg/<색>.png)
+ *  · 크기 = 곰 단계( floor(줄/10)+1, 1~11 ) → 1단계 작게 ~ 11단계 크게
+ *  · 카운터 = 한 판에서 지운 줄 수 (새 판이면 1단계·기본색)
  */
 const BEAR_STAGES = 11;
-const BEAR_CYCLE = ['white', 'pink', 'yellow', 'green', 'blue']; // 1~10단계 순환 색
-const BEAR_FINAL = 'gom1';                                       // 11단계 = 주황 히어로곰
-
-function bearImageFor(stage) {
-  return stage >= BEAR_STAGES ? BEAR_FINAL : BEAR_CYCLE[(stage - 1) % BEAR_CYCLE.length];
-}
 
 class JellyBear {
   constructor(stageId = 'bear-stage') {
     this.stage = document.getElementById(stageId);
-    this.cur = null;
+    this.color = null;
+    this.curStage = null;
     if (this.stage) this._build();
-    this.reset();
   }
 
   _build() {
@@ -29,31 +23,31 @@ class JellyBear {
     this.img = this.stage.querySelector('#bear-img');
   }
 
-  reset() { this.cur = null; this._setStage(1, true); }
-
-  // 줄 수 → 곰 단계 갱신 (game 의 onState 에서 호출)
-  update(lines) {
-    if (!this.stage) return;
+  // game 의 onState 에서 매 갱신마다 호출 (lines, 블록색)
+  update(lines, color) {
+    if (!this.stage || !this.img) return;
     const stage = Math.max(1, Math.min(BEAR_STAGES, Math.floor(lines / 10) + 1));
-    this._setStage(stage, false);
+
+    // 색 바뀜 → 그 색 곰을 띄움(팝)
+    if (color && color !== this.color) {
+      this.color = color;
+      this.img.src = `gomimg/${color}.png`;
+      this._pop();
+      if (typeof Sound !== 'undefined' && this.curStage !== null) Sound.play('jelly');
+    }
+    // 단계(크기) 바뀜
+    if (stage !== this.curStage) {
+      const grew = this.curStage !== null && stage > this.curStage;
+      this.curStage = stage;
+      this.img.dataset.stage = stage;
+      this.img.style.width = (34 + (stage - 1) * 8) + 'px';   // 34px ~ 114px
+      if (grew) { this._pop(); if (typeof Sound !== 'undefined' && stage >= BEAR_STAGES) Sound.play('evolve'); }
+    }
   }
 
-  _setStage(stage, silent) {
-    if (stage === this.cur) return;
-    const grew = this.cur !== null && stage > this.cur;
-    this.cur = stage;
-    if (!this.img) return;
-
-    this.img.src = `gomimg/${bearImageFor(stage)}.png`;
-    this.img.dataset.stage = stage;
-    // 1단계 작게 → 11단계 크게
-    this.img.style.width = (34 + (stage - 1) * 8) + 'px';
-
-    if (grew && !silent) {                        // 성장 연출
-      this.img.classList.remove('pop');
-      void this.img.offsetWidth;                  // 애니메이션 리스타트
-      this.img.classList.add('pop');
-      if (typeof Sound !== 'undefined') Sound.play(stage >= BEAR_STAGES ? 'evolve' : 'jelly');
-    }
+  _pop() {
+    this.img.classList.remove('pop');
+    void this.img.offsetWidth;   // 애니메이션 리스타트
+    this.img.classList.add('pop');
   }
 }

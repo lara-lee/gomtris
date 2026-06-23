@@ -36,7 +36,7 @@ window.addEventListener('DOMContentLoaded', () => {
     $level.textContent = s.level;
     $high.textContent = s.highScore.toLocaleString();
 
-    bear.update(s.lines);   // 젤리곰 성장 갱신
+    bear.update(s.lines, s.bearColor);   // 젤리곰: 크기=단계, 색=마지막 지운 블록
     const gomStage = Math.min(11, Math.floor(s.lines / 10) + 1);
     $gom.innerHTML = gomStage + '<span class="gom-max"> / 11</span>';
 

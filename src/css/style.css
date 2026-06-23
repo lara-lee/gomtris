@@ -138,13 +138,14 @@ h1 {
 }
 @keyframes flash { 0%,100% { opacity: 1; } 50% { opacity: 0.1; } }
 
-.I { background:#19d3e6; }
-.O { background:#ffd400; }
-.T { background:#c850ff; }
-.S { background:#5fe000; }
-.Z { background:#ff2e6b; }
-.J { background:#2b6bff; }
-.L { background:#ff8a00; }
+/* 블록 색 = 곰 색 팔레트 (핑크·주황·노랑·초록·파랑) */
+.I { background:#2ec5e6; }  /* blue  */
+.J { background:#2ec5e6; }  /* blue  */
+.O { background:#ffd23d; }  /* yellow */
+.T { background:#ff5d8f; }  /* pink  */
+.S { background:#6ee04a; }  /* green */
+.Z { background:#ff8a3d; }  /* orange */
+.L { background:#ff8a3d; }  /* orange */
 
 /* ===== 보드 래퍼 ===== */
 .board-wrap { position: relative; }

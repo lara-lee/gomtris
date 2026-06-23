@@ -30,6 +30,7 @@ class Game {
     this.nextType = this.bag.next();
     this.holdType = null;
     this.canHold = true;
+    this.bearColor = CONFIG.DEFAULT_BEAR;   // 마지막으로 줄 지운 블록의 곰 색
     this.over = false;
     this.paused = false;
     this.counting = false;
@@ -187,6 +188,7 @@ class Game {
 
   // 피스 고정 → (줄제거 애니메이션) → 점수/레벨 → 새 피스
   _lock() {
+    const lockedType = this.piece.type;   // 이번에 놓은 블록 (줄 지우면 이 색 곰 등장)
     this.board.merge(this.piece);
     Sound.play('lock');
     const full = this.board.getFullRows();
@@ -196,6 +198,9 @@ class Game {
       this._render();
       return;
     }
+
+    // 줄을 지웠으니 그 블록 색의 곰으로 갱신
+    this.bearColor = CONFIG.PIECE_BEAR[lockedType] || this.bearColor;
 
     // 줄 제거 애니메이션 동안 입력/중력 정지
     this.piece = null;
@@ -242,6 +247,7 @@ class Game {
       lines: this.lines,
       level: this.level,
       highScore: this.highScore,
+      bearColor: this.bearColor,
       phase: this.phase,
     });
   }
