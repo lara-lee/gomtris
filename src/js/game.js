@@ -199,9 +199,6 @@ class Game {
       return;
     }
 
-    // 줄을 지웠으니 그 블록 색의 곰으로 갱신
-    this.bearColor = CONFIG.PIECE_BEAR[lockedType] || this.bearColor;
-
     // 줄 제거 애니메이션 동안 입력/중력 정지
     this.piece = null;
     this.clearing = true;
@@ -212,8 +209,13 @@ class Game {
     setTimeout(() => {
       this.board.removeRows(full);
       const cleared = full.length;
+      const prevLines = this.lines;
       this.score += (CONFIG.SCORE_TABLE[cleared] || 0) * this.level;
       this.lines += cleared;
+      // 곰 색은 "2단계(10줄) 진입 순간 한 번만" 그 블록 색으로 고정 (이후 유지)
+      if (prevLines < CONFIG.LINES_PER_LEVEL && this.lines >= CONFIG.LINES_PER_LEVEL) {
+        this.bearColor = CONFIG.PIECE_BEAR[lockedType] || this.bearColor;
+      }
       const newLevel = Math.floor(this.lines / CONFIG.LINES_PER_LEVEL) + 1;
       if (newLevel > this.level) { this.level = newLevel; Sound.play('levelup'); this._updateBgmTempo(); }
       this.clearing = false;

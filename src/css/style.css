@@ -350,8 +350,10 @@ kbd {
 /* =========================================================
    젤리곰 (보드 뒤에서 걸어다님)
    ========================================================= */
-.bear-walker { position: absolute; animation: roam 22s ease-in-out infinite; }
-.bear-face { animation: face 22s steps(1) infinite; }
+/* 평소엔 우상단에 고정. 9단계 이상에서만 돌아다님 (.roaming) */
+.bear-walker { position: absolute; top: 8%; left: 84%; }
+.bear-walker.roaming { animation: roam 22s ease-in-out infinite; }
+.bear-walker.roaming .bear-face { animation: face 22s steps(1) infinite; }
 /* 곰은 단계별 SVG 이미지. 폭은 JS 가 단계에 맞춰 지정 (1단계 작게 → 11단계 크게) */
 .bear {
   display: block;

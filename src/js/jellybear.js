@@ -21,6 +21,7 @@ class JellyBear {
         </div>
       </div>`;
     this.img = this.stage.querySelector('#bear-img');
+    this.walker = this.stage.querySelector('.bear-walker');
   }
 
   // game 의 onState 에서 매 갱신마다 호출 (lines, 블록색)
@@ -41,6 +42,8 @@ class JellyBear {
       this.curStage = stage;
       this.img.dataset.stage = stage;
       this.img.style.width = (34 + (stage - 1) * 8) + 'px';   // 34px ~ 114px
+      // 9단계 이상에서만 돌아다님 (그 외엔 고정 — 정신없음 방지)
+      if (this.walker) this.walker.classList.toggle('roaming', stage >= 9);
       if (grew) { this._pop(); if (typeof Sound !== 'undefined' && stage >= BEAR_STAGES) Sound.play('evolve'); }
     }
   }
