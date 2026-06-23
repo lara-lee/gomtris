@@ -34,16 +34,13 @@
       <!-- 왼쪽 -->
       <div class="side">
         <div class="panel">
-          <h2>Hold</h2>
-          <div id="hold" class="grid preview"></div>
+          <h2>Next</h2>
+          <div id="next" class="grid preview"></div>
         </div>
         <div class="panel">
           <h2>Score</h2>
           <div id="score" class="stat">0</div>
-        </div>
-        <div class="panel">
-          <h2>High</h2>
-          <div id="high" class="stat small">0</div>
+          <div class="best">BEST <span id="high">0</span></div>
         </div>
       </div>
 
@@ -66,25 +63,13 @@
       <!-- 오른쪽 -->
       <div class="side">
         <div class="panel">
-          <h2>Next</h2>
-          <div id="next" class="grid preview"></div>
-        </div>
-        <div class="panel">
           <h2>Lines</h2>
           <div id="lines" class="stat">0</div>
-        </div>
-        <div class="panel">
-          <h2>Level · 속도</h2>
-          <div id="level" class="stat">1</div>
-        </div>
-        <div class="panel gom-panel">
-          <h2>Gom · 곰단계</h2>
-          <div id="gom" class="stat">1<span class="gom-max"> / 11</span></div>
         </div>
         <div class="panel gom-pet">
           <h2>My Gom 🐾</h2>
           <div class="pet-box"><img id="pet-img" alt="my gom"></div>
-          <div class="pet-stage" id="pet-stage">1단계</div>
+          <div class="pet-stage"><b id="gom">1</b><span class="gom-max"> / 11 단계</span></div>
         </div>
       </div>
     </div>
@@ -100,12 +85,11 @@
 
   <!-- 모바일 터치 패드 -->
   <div class="touchpad">
-    <button id="btn-rotate">⟳ 회전</button>
-    <button id="btn-hold">홀드</button>
-    <button id="btn-drop">⤓ 하드드롭</button>
     <button id="btn-left">◀</button>
-    <button id="btn-down">▼</button>
+    <button id="btn-rotate">⟳ 회전</button>
     <button id="btn-right">▶</button>
+    <button id="btn-down">▼ 소프트</button>
+    <button id="btn-drop">⤓ 하드드롭</button>
   </div>
 
   <!-- 도움말 패널 -->
@@ -121,11 +105,10 @@
             <dt><kbd>↓</kbd></dt><dd>소프트 드롭</dd>
             <dt><kbd>↑</kbd><kbd>X</kbd></dt><dd>회전 <span class="dim">(<kbd>Z</kbd> 역회전)</span></dd>
             <dt><kbd>Space</kbd></dt><dd>하드 드롭</dd>
-            <dt><kbd>C</kbd></dt><dd>홀드</dd>
             <dt><kbd>P</kbd></dt><dd>일시정지</dd>
             <dt><kbd>R</kbd><kbd>M</kbd></dt><dd>재시작 · 음소거</dd>
           </dl>
-          <p class="help-touch">📱 <b>폰</b> — 드래그=이동 · 탭=회전 · 아래로 튕김=하드드롭 · 길게=홀드</p>
+          <p class="help-touch">📱 <b>폰</b> — 드래그=이동 · 탭=회전 · 아래로 튕김=하드드롭</p>
         </section>
 
         <section class="help-sec">

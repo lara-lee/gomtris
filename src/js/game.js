@@ -28,9 +28,7 @@ class Game {
     this.lines = 0;
     this.level = 1;
     this.nextType = this.bag.next();
-    this.holdType = null;
-    this.canHold = true;
-    this.bearColor = CONFIG.DEFAULT_BEAR;   // 마지막으로 줄 지운 블록의 곰 색
+    this.bearColor = CONFIG.DEFAULT_BEAR;   // 2단계 진입 시 고정될 곰 색
     this.over = false;
     this.paused = false;
     this.counting = false;
@@ -84,7 +82,6 @@ class Game {
   _spawn() {
     this.piece = createPiece(this.nextType);
     this.nextType = this.bag.next();
-    this.canHold = true;
     if (!this.board.isValid(this.piece)) this._gameOver();
   }
 
@@ -144,21 +141,6 @@ class Game {
         return;
       }
     }
-  }
-
-  hold() {
-    if (!this._playable() || !this.canHold) return;
-    const cur = this.piece.type;
-    if (this.holdType) {
-      this.piece = createPiece(this.holdType);
-      this.holdType = cur;
-    } else {
-      this.holdType = cur;
-      this._spawn();
-    }
-    this.canHold = false;
-    Sound.play('hold');
-    this._render();
   }
 
   togglePause() {
@@ -243,7 +225,6 @@ class Game {
   _render() {
     this.renderer.drawBoard(this.board, (this.over || this.clearing) ? null : this.piece);
     this.renderer.drawNext(this.nextType);
-    this.renderer.drawHold(this.holdType);
     this.onState({
       score: this.score,
       lines: this.lines,

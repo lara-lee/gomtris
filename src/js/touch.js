@@ -3,8 +3,7 @@
  *  · 아래로 드래그 → 소프트 드롭(한 칸씩)
  *  · 아래로 빠르게 튕김(플릭) → 하드 드롭
  *  · 짧게 탭        → 회전
- *  · 길게 누름      → 홀드
- * (하단 버튼 패드는 그대로 보조 수단으로 유지)
+ * (하단 버튼 패드는 보조 수단)
  */
 function bindTouch(game) {
   const area = document.getElementById('board');
@@ -15,13 +14,10 @@ function bindTouch(game) {
   const TAP_MOVE = 14;      // 탭으로 인정할 최대 이동량
   const FLICK_MS = 250;     // 하드드롭 플릭 최대 시간
   const FLICK_DY = 70;      // 하드드롭으로 인정할 아래 이동량
-  const HOLD_MS = 420;      // 길게 누름(홀드) 시간
 
   let sx = 0, sy = 0, st = 0;
   let lastX = 0, lastY = 0;
-  let moved = false, holdTimer = null, didHold = false;
-
-  const clearHold = () => { if (holdTimer) { clearTimeout(holdTimer); holdTimer = null; } };
+  let moved = false;
 
   area.addEventListener('touchstart', (e) => {
     const t = e.touches[0];
@@ -29,22 +25,17 @@ function bindTouch(game) {
     sy = lastY = t.clientY;
     st = Date.now();
     moved = false;
-    didHold = false;
-    clearHold();
-    holdTimer = setTimeout(() => { game.hold(); didHold = true; }, HOLD_MS);
     e.preventDefault();
   }, { passive: false });
 
   area.addEventListener('touchmove', (e) => {
     const t = e.touches[0];
-
     // 좌우 이동
     const dx = t.clientX - lastX;
     if (Math.abs(dx) >= STEP) {
       game.move(dx > 0 ? 1 : -1);
       lastX = t.clientX;
       moved = true;
-      clearHold();
     }
     // 아래로 소프트 드롭
     const dy = t.clientY - lastY;
@@ -52,14 +43,11 @@ function bindTouch(game) {
       game.softDrop();
       lastY = t.clientY;
       moved = true;
-      clearHold();
     }
     e.preventDefault();
   }, { passive: false });
 
   area.addEventListener('touchend', (e) => {
-    clearHold();
-    if (didHold) { e.preventDefault(); return; }   // 이미 홀드 처리됨
     const dt = Date.now() - st;
     const t = e.changedTouches[0];
     const totDx = t.clientX - sx, totDy = t.clientY - sy;

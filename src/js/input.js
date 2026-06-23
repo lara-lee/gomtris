@@ -12,8 +12,6 @@ function bindInput(game, ui) {
       KeyZ:       () => game.rotate(-1),
       KeyX:       () => game.rotate(1),
       Space:      () => game.hardDrop(),
-      KeyC:       () => game.hold(),
-      ShiftLeft:  () => game.hold(),
       KeyP:       () => game.togglePause(),
       Escape:     () => game.togglePause(),
       KeyR:       () => game.start(),              // 재시작
@@ -40,5 +38,4 @@ function bindInput(game, ui) {
   btn('btn-down', () => game.softDrop());
   btn('btn-rotate', () => game.rotate(1));
   btn('btn-drop', () => game.hardDrop());
-  btn('btn-hold', () => game.hold());
 }

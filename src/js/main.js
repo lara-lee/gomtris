@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // ----- DOM 참조 -----
   const $ = (id) => document.getElementById(id);
-  const $score = $('score'), $lines = $('lines'), $level = $('level'), $high = $('high'), $gom = $('gom');
+  const $score = $('score'), $lines = $('lines'), $high = $('high');
   const $overlay = $('overlay'), $overlayTitle = $('overlay-title'), $overlayText = $('overlay-text');
   const $startBtn = $('start');
   const $pauseBtn = $('pause-btn');
@@ -33,12 +33,9 @@ window.addEventListener('DOMContentLoaded', () => {
   game.onState = (s) => {
     $score.textContent = s.score.toLocaleString();
     $lines.textContent = s.lines;
-    $level.textContent = s.level;
     $high.textContent = s.highScore.toLocaleString();
 
-    bear.update(s.lines, s.bearColor);   // 젤리곰: 크기=단계, 색=마지막 지운 블록
-    const gomStage = Math.min(11, Math.floor(s.lines / 10) + 1);
-    $gom.innerHTML = gomStage + '<span class="gom-max"> / 11</span>';
+    bear.update(s.lines, s.bearColor);   // 젤리곰: 크기/단계숫자 갱신 + 색
 
     // 일시정지 버튼은 플레이 중에만 활성
     $pauseBtn.disabled = (s.phase !== 'playing' && s.phase !== 'paused');

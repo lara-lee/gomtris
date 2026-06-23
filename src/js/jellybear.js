@@ -23,7 +23,7 @@ class JellyBear {
     this.img = this.stage.querySelector('#bear-img');
     this.walker = this.stage.querySelector('.bear-walker');
     this.petImg = document.getElementById('pet-img');     // 펫 박스(My Gom)
-    this.petStage = document.getElementById('pet-stage');
+    this.gomNum = document.getElementById('gom');         // 단계 숫자 (N / 11)
   }
 
   // game 의 onState 에서 매 갱신마다 호출 (lines, 블록색)
@@ -70,7 +70,7 @@ class JellyBear {
       this.petImg.src = `assets/gomimg/${color}.png`;
       this.petImg.style.width = (30 + (stage - 1) * 4.5) + 'px';   // 박스 안에서도 점점 커짐
     }
-    if (this.petStage) this.petStage.textContent = stage + '단계';
+    if (this.gomNum) this.gomNum.textContent = stage;   // 단계 숫자 (N / 11)
   }
 
   _pop() {

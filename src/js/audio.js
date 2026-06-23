@@ -17,7 +17,6 @@ const Sound = {
     clear:   [660, 0.16, 'triangle'],
     tetris:  [880, 0.30, 'triangle'],
     levelup: [990, 0.22, 'triangle'],
-    hold:    [550, 0.05, 'sine'],
     gameover:[ 80, 0.60, 'sawtooth'],
     pause:   [400, 0.10, 'sine'],
     count:   [500, 0.10, 'square'],
