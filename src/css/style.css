@@ -85,6 +85,13 @@ h1 {
 .stat { font-size: 1.6rem; font-weight: 900; font-variant-numeric: tabular-nums; }
 .stat.small { font-size: 1.15rem; color: var(--muted); }
 
+/* 곰 단계: 목표(/11)가 보이게 강조 */
+.gom-panel { border-color: var(--pink); }
+.gom-panel h2 { background: var(--pink); color: #fff; border-color: var(--pink);
+  -webkit-text-fill-color: #fff; display: inline-block; padding: 2px 6px; border: none; }
+#gom { color: var(--pink); }
+.gom-max { font-size: .9rem; color: var(--muted); font-weight: 700; }
+
 /* ===== 격자 ===== */
 .grid {
   display: grid;

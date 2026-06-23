@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // ----- DOM 참조 -----
   const $ = (id) => document.getElementById(id);
-  const $score = $('score'), $lines = $('lines'), $level = $('level'), $high = $('high');
+  const $score = $('score'), $lines = $('lines'), $level = $('level'), $high = $('high'), $gom = $('gom');
   const $overlay = $('overlay'), $overlayTitle = $('overlay-title'), $overlayText = $('overlay-text');
   const $startBtn = $('start');
   const $pauseBtn = $('pause-btn');
@@ -37,6 +37,8 @@ window.addEventListener('DOMContentLoaded', () => {
     $high.textContent = s.highScore.toLocaleString();
 
     bear.update(s.lines);   // 젤리곰 성장 갱신
+    const gomStage = Math.min(11, Math.floor(s.lines / 10) + 1);
+    $gom.innerHTML = gomStage + '<span class="gom-max"> / 11</span>';
 
     // 일시정지 버튼은 플레이 중에만 활성
     $pauseBtn.disabled = (s.phase !== 'playing' && s.phase !== 'paused');
