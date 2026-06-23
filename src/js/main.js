@@ -91,6 +91,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if ($helpBtn) $helpBtn.addEventListener('click', () => ui.toggleHelp());
   if ($muteBtn) $muteBtn.addEventListener('click', () => ui.toggleMute());
+
+  // DEV: 핑크곰으로 1→11단계 크기 변화를 순서대로 미리보기
+  const $devBtn = $('dev-btn');
+  if ($devBtn) $devBtn.addEventListener('click', () => {
+    let s = 1;
+    const step = () => {
+      bear.preview(s, 'pink');
+      if (s < 11) { s++; setTimeout(step, 430); }
+    };
+    step();
+  });
   if ($help) {
     const closeHelp = () => $help.classList.remove('show');
     $help.addEventListener('click', closeHelp);                       // 배경(바깥) 클릭 → 닫기

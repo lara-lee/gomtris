@@ -22,6 +22,8 @@ class JellyBear {
       </div>`;
     this.img = this.stage.querySelector('#bear-img');
     this.walker = this.stage.querySelector('.bear-walker');
+    this.petImg = document.getElementById('pet-img');     // 펫 박스(My Gom)
+    this.petStage = document.getElementById('pet-stage');
   }
 
   // game 의 onState 에서 매 갱신마다 호출 (lines, 블록색)
@@ -46,6 +48,29 @@ class JellyBear {
       if (this.walker) this.walker.classList.toggle('roaming', stage >= 9);
       if (grew) { this._pop(); if (typeof Sound !== 'undefined' && stage >= BEAR_STAGES) Sound.play('evolve'); }
     }
+    this._updatePet(stage, this.color || 'white');
+  }
+
+  // DEV 미리보기: 게임과 무관하게 특정 단계/색 곰을 강제로 표시
+  preview(stage, color) {
+    if (!this.img) return;
+    this.color = color;
+    this.curStage = stage;
+    this.img.src = `assets/gomimg/${color}.png`;
+    this.img.dataset.stage = stage;
+    this.img.style.width = (34 + (stage - 1) * 8) + 'px';
+    if (this.walker) this.walker.classList.toggle('roaming', stage >= 9);
+    this._pop();
+    this._updatePet(stage, color);
+  }
+
+  // 펫 박스(My Gom) 동기화
+  _updatePet(stage, color) {
+    if (this.petImg) {
+      this.petImg.src = `assets/gomimg/${color}.png`;
+      this.petImg.style.width = (30 + (stage - 1) * 4.5) + 'px';   // 박스 안에서도 점점 커짐
+    }
+    if (this.petStage) this.petStage.textContent = stage + '단계';
   }
 
   _pop() {

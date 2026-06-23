@@ -85,6 +85,27 @@ h1 {
 .stat { font-size: 1.6rem; font-weight: 900; font-variant-numeric: tabular-nums; }
 .stat.small { font-size: 1.15rem; color: var(--muted); }
 
+/* My Gom 펫 박스 (애완곰처럼 보이는 작은 enclosure) */
+.gom-pet { text-align: center; }
+.pet-box {
+  margin-top: 4px;
+  height: 92px;
+  border: 2px solid var(--ink);
+  background: linear-gradient(#fdfbf3 0%, #fdfbf3 72%, #efe9d6 72%, #efe9d6 100%); /* 바닥 느낌 */
+  display: flex; align-items: flex-end; justify-content: center;
+  padding-bottom: 6px;
+  overflow: hidden;
+}
+.pet-box img { display: block; height: auto; image-rendering: auto; transition: width .3s ease; }
+.pet-stage {
+  margin-top: 5px; font-size: .64rem; font-weight: 900; letter-spacing: 1px;
+  color: var(--pink);
+}
+
+/* DEV 버튼 (미리보기용 — 눈에 덜 띄게) */
+#dev-btn { font-size: .62rem; padding: 7px 12px; background: #efece3; color: #777; }
+#dev-btn:hover { background: var(--ink); color: #fff; }
+
 /* 곰 단계: 목표(/11)가 보이게 강조 */
 .gom-panel { border-color: var(--pink); }
 .gom-panel h2 { background: var(--pink); color: #fff; border-color: var(--pink);
