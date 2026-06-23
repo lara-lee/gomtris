@@ -52,14 +52,12 @@ h1 {
   font-size: 2.2rem;
   font-weight: 900;
   letter-spacing: 7px;
+  background: linear-gradient(90deg,#ff2e88,#ff8a3d,#ffd400,#6ee04a,#2ec5e6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   -webkit-text-stroke: 2px var(--ink);
 }
-/* 글자별 단색 — 핑크·주황·노랑·초록·파랑(곰 색 팔레트), 파랑으로 끝 */
-h1 .c-pink   { color: #ff5d8f; }
-h1 .c-orange { color: #ff8a3d; }
-h1 .c-yellow { color: #ffd23d; }
-h1 .c-green  { color: #6ee04a; }
-h1 .c-blue   { color: #2ec5e6; }
 .tag {
   font-size: .58rem;
   font-weight: 800;
