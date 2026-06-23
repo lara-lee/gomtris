@@ -93,32 +93,36 @@
   <!-- 도움말 패널 -->
   <div id="help" class="help-overlay">
     <div class="help-card">
-      <h3>게임 방법</h3>
-      <div class="help-cols">
-        <div>
-          <h4>조작</h4>
-          <ul>
-            <li><kbd>←</kbd> <kbd>→</kbd> 좌우 이동</li>
-            <li><kbd>↓</kbd> 소프트 드롭</li>
-            <li><kbd>↑</kbd>/<kbd>X</kbd> 회전, <kbd>Z</kbd> 역회전</li>
-            <li><kbd>Space</kbd> 하드 드롭</li>
-            <li><kbd>C</kbd>/<kbd>Shift</kbd> 홀드</li>
-            <li><kbd>P</kbd>/<kbd>ESC</kbd> 일시정지</li>
-            <li><kbd>R</kbd> 재시작 · <kbd>M</kbd> 음소거</li>
-          </ul>
-        </div>
-        <div>
-          <h4>규칙 &amp; 젤리곰</h4>
-          <ul>
+      <div class="help-bar">게임 방법 · HOW TO PLAY</div>
+      <div class="help-body">
+
+        <section class="help-sec">
+          <h4>🎮 조작</h4>
+          <dl class="keylist">
+            <dt><kbd>←</kbd><kbd>→</kbd></dt><dd>좌우 이동</dd>
+            <dt><kbd>↓</kbd></dt><dd>소프트 드롭</dd>
+            <dt><kbd>↑</kbd><kbd>X</kbd></dt><dd>회전 <span class="dim">(<kbd>Z</kbd> 역회전)</span></dd>
+            <dt><kbd>Space</kbd></dt><dd>하드 드롭</dd>
+            <dt><kbd>C</kbd></dt><dd>홀드</dd>
+            <dt><kbd>P</kbd></dt><dd>일시정지</dd>
+            <dt><kbd>R</kbd><kbd>M</kbd></dt><dd>재시작 · 음소거</dd>
+          </dl>
+          <p class="help-touch">📱 <b>폰</b> — 드래그=이동 · 탭=회전 · 아래로 튕김=하드드롭 · 길게=홀드</p>
+        </section>
+
+        <section class="help-sec">
+          <h4>📜 규칙 &amp; 젤리곰</h4>
+          <ul class="rules">
             <li>가로 한 줄을 채우면 사라지고 점수 획득</li>
-            <li>1·2·3·4줄 = 100·300·500·800점 (×레벨)</li>
-            <li>10줄마다 <b>레벨</b>(속도)·<b>곰 단계</b>(크기)가 +1</li>
-            <li>곰 <b>색</b> = 방금 줄을 지운 <b>블록의 색</b></li>
-            <li>곰은 보드 밖을 돌아다니며 11단계까지 성장</li>
+            <li>1·2·3·4줄 = <b>100·300·500·800</b>점 (×레벨)</li>
+            <li>10줄마다 <b>레벨</b>(속도)·<b>곰 단계</b>(크기) +1</li>
+            <li>🐻 곰 <b>색</b> = 방금 줄 지운 <b>블록 색</b></li>
+            <li>곰은 보드 밖을 돌며 <b>11단계</b>까지 성장</li>
           </ul>
-        </div>
+        </section>
+
       </div>
-      <p class="help-close">아무 곳이나 눌러 닫기</p>
+      <button class="help-close-btn">✕ 닫기</button>
     </div>
   </div>
 

@@ -91,7 +91,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
   if ($helpBtn) $helpBtn.addEventListener('click', () => ui.toggleHelp());
   if ($muteBtn) $muteBtn.addEventListener('click', () => ui.toggleMute());
-  if ($help) $help.addEventListener('click', () => $help.classList.remove('show'));
+  if ($help) {
+    const closeHelp = () => $help.classList.remove('show');
+    $help.addEventListener('click', closeHelp);                       // 배경(바깥) 클릭 → 닫기
+    const card = $help.querySelector('.help-card');
+    if (card) card.addEventListener('click', (e) => e.stopPropagation()); // 내용 클릭은 유지
+    const closeBtn = $help.querySelector('.help-close-btn');
+    if (closeBtn) closeBtn.addEventListener('click', closeHelp);      // ✕ 버튼 → 닫기
+  }
 
   // 초기 렌더 (시작 전 빈 보드 + 타이틀)
   game._render();

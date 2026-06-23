@@ -246,31 +246,67 @@ kbd {
 }
 .toolbar button { font-size: .72rem; padding: 8px 14px; }
 
-/* ===== 도움말 ===== */
+/* ===== 도움말 (가독성 개선) ===== */
 .help-overlay {
   position: fixed; inset: 0; display: none;
   align-items: center; justify-content: center;
-  background: rgba(0,0,0,0.55);
+  background: rgba(0,0,0,0.6);
   z-index: 100; padding: 20px; cursor: pointer;
 }
 .help-overlay.show { display: flex; }
 .help-card {
   background: var(--card);
   border: 4px solid var(--ink);
-  padding: 24px 28px;
-  max-width: 540px; width: 100%;
+  width: min(580px, 100%);
+  cursor: default;
 }
-.help-card h3 {
-  margin: 0 0 16px; font-weight: 900; letter-spacing: 2px;
-  text-transform: uppercase; border-bottom: 3px solid var(--ink); padding-bottom: 10px;
+/* 윈도우 타이틀 바 */
+.help-bar {
+  background: var(--ink); color: #fff;
+  font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+  font-size: .82rem; padding: 11px 18px;
 }
-.help-cols { display: flex; gap: 28px; flex-wrap: wrap; }
-.help-cols > div { flex: 1 1 210px; }
-.help-cols h4 { margin: 0 0 8px; font-size: .82rem; letter-spacing: 1px; }
-.help-cols ul { margin: 0; padding-left: 4px; list-style: none; }
-.help-cols li { font-size: .8rem; color: #444; margin: 8px 0; line-height: 1.5; }
-.help-cols b { color: var(--ink); }
-.help-close { text-align: center; color: var(--muted); font-size: .74rem; margin: 18px 0 0; }
+.help-body { display: flex; gap: 26px; padding: 22px 22px 6px; flex-wrap: wrap; }
+.help-sec { flex: 1 1 240px; }
+.help-sec h4 {
+  margin: 0 0 14px; font-size: .82rem; font-weight: 900; letter-spacing: 1px;
+  display: inline-block; background: var(--pink); color: #fff; padding: 4px 12px;
+}
+
+/* 키 → 동작 정렬 그리드 */
+.keylist { display: grid; grid-template-columns: auto 1fr; gap: 9px 14px; margin: 0; align-items: center; }
+.keylist dt { display: flex; gap: 4px; }
+.keylist dd { margin: 0; font-size: .9rem; color: #333; }
+.keylist .dim { color: var(--muted); font-size: .8rem; }
+
+/* 규칙 목록 */
+.rules { margin: 0; padding: 0; list-style: none; }
+.rules li {
+  font-size: .9rem; line-height: 1.5; color: #333;
+  padding: 9px 0 9px 18px; position: relative;
+  border-bottom: 1px dashed #dcdcd2;
+}
+.rules li:last-child { border-bottom: none; }
+.rules li::before { content: "›"; position: absolute; left: 2px; color: var(--pink); font-weight: 900; }
+.rules b { color: var(--ink); }
+
+.help-touch {
+  margin: 16px 0 0; font-size: .78rem; line-height: 1.5; color: #555;
+  background: #f3f1e8; border: 2px solid var(--ink); padding: 8px 10px;
+}
+.help-touch b { color: var(--ink); }
+
+.help-close-btn {
+  display: block; width: calc(100% - 44px); margin: 14px 22px 22px;
+  background: var(--ink); color: #fff;
+}
+.help-close-btn:hover { background: var(--pink); }
+
+/* 키캡 크게 (도움말 가독성) */
+.help-card kbd {
+  min-width: 24px; text-align: center; display: inline-block;
+  font-size: .8rem; padding: 3px 8px;
+}
 
 /* ===== 모바일 터치 패드 ===== */
 .touchpad { display: none; gap: 8px; flex-wrap: wrap; justify-content: center; max-width: 360px; }
