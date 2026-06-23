@@ -1,6 +1,6 @@
 # 🐻 Gomtris — LEE Edition
 
-곰돌이가 자라는 Y2K 감성 블록 퍼즐 게임.
+곰돌이가 자라는 감성 블록 퍼즐 게임.
 
 <p align="center">
   <img src="assets/screenshot.png" width="360" alt="Gomtris 게임 화면">
