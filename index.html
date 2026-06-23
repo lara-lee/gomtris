@@ -7,66 +7,73 @@
 <link rel="stylesheet" href="src/css/style.css">
 </head>
 <body>
-  <h1>GOMTRIS</h1>
-  <p class="subtitle">🐻 곰트릭스 · Y2K Edition</p>
+  <!-- 보드 밖(여백)을 돌아다니는 젤리곰. 포스터 뒤 전체 화면 레이어 -->
+  <div id="bear-stage"></div>
 
-  <div class="layout">
-    <!-- 왼쪽: HOLD + 점수 -->
-    <div class="side">
-      <div class="panel">
-        <h2>Hold</h2>
-        <div id="hold" class="grid preview"></div>
+  <div class="poster">
+    <!-- 헤더 -->
+    <header class="poster-header">
+      <h1>GOMTRIS</h1>
+      <span class="tag">Y2K Edition</span>
+    </header>
+
+    <!-- 본문 -->
+    <div class="layout">
+      <!-- 왼쪽 -->
+      <div class="side">
+        <div class="panel">
+          <h2>Hold</h2>
+          <div id="hold" class="grid preview"></div>
+        </div>
+        <div class="panel">
+          <h2>Score</h2>
+          <div id="score" class="stat">0</div>
+        </div>
+        <div class="panel">
+          <h2>High</h2>
+          <div id="high" class="stat small">0</div>
+        </div>
       </div>
-      <div class="panel">
-        <h2>Score</h2>
-        <div id="score" class="stat">0</div>
+
+      <!-- 가운데: 게임판 -->
+      <div class="board-wrap">
+        <div id="bear-stage"></div>
+        <div id="board" class="grid"></div>
+        <div id="overlay" class="overlay show">
+          <div class="overlay-window">
+            <div class="overlay-bar">GOMTRIS</div>
+            <div class="overlay-content">
+              <h3 id="overlay-title">GOMTRIS</h3>
+              <p id="overlay-text">게임을 시작하세요</p>
+              <button id="start" class="primary">게임 시작</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="panel">
-        <h2>High</h2>
-        <div id="high" class="stat small">0</div>
+
+      <!-- 오른쪽 -->
+      <div class="side">
+        <div class="panel">
+          <h2>Next</h2>
+          <div id="next" class="grid preview"></div>
+        </div>
+        <div class="panel">
+          <h2>Level</h2>
+          <div id="level" class="stat">1</div>
+        </div>
+        <div class="panel">
+          <h2>Lines</h2>
+          <div id="lines" class="stat">0</div>
+        </div>
       </div>
     </div>
 
-    <!-- 가운데: 게임판 -->
-    <div class="board-wrap">
-      <div id="bear-stage"></div>
-      <div id="board" class="grid"></div>
-      <div id="overlay" class="overlay show">
-        <h3 id="overlay-title">GOMTRIS</h3>
-        <p id="overlay-text">난이도를 고르고 시작하세요</p>
-      </div>
+    <!-- 툴바 -->
+    <div class="toolbar">
+      <button id="pause-btn">⏸ 일시정지</button>
+      <button id="help-btn">❔ 설명</button>
+      <button id="mute-btn">🔊 소리 켬</button>
     </div>
-
-    <!-- 오른쪽: NEXT + 레벨/라인 -->
-    <div class="side">
-      <div class="panel">
-        <h2>Next</h2>
-        <div id="next" class="grid preview"></div>
-      </div>
-      <div class="panel">
-        <h2>Level</h2>
-        <div id="level" class="stat">1</div>
-      </div>
-      <div class="panel">
-        <h2>Lines</h2>
-        <div id="lines" class="stat">0</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 난이도 선택 -->
-  <div class="difficulty">
-    <span class="diff-label">난이도</span>
-    <button data-diff="easy" class="active">초보</button>
-    <button data-diff="normal">중수</button>
-    <button data-diff="hard">고수</button>
-  </div>
-
-  <!-- 컨트롤 바 -->
-  <div class="controls-bar">
-    <button id="start" class="primary">게임 시작</button>
-    <button id="help-btn">❔ 설명</button>
-    <button id="mute-btn">🔊 소리 켬</button>
   </div>
 
   <!-- 모바일 터치 패드 -->
@@ -79,7 +86,7 @@
     <button id="btn-right">▶</button>
   </div>
 
-  <!-- 도움말 패널 (클릭하면 닫힘) -->
+  <!-- 도움말 패널 -->
   <div id="help" class="help-overlay">
     <div class="help-card">
       <h3>게임 방법</h3>
@@ -97,13 +104,13 @@
           </ul>
         </div>
         <div>
-          <h4>규칙 &amp; 점수</h4>
+          <h4>규칙 &amp; 젤리곰</h4>
           <ul>
             <li>가로 한 줄을 채우면 사라지고 점수 획득</li>
             <li>1·2·3·4줄 = 100·300·500·800점 (×레벨)</li>
             <li>10줄마다 레벨업 → 낙하 속도 증가</li>
-            <li>고스트(반투명)는 착지 위치 미리보기</li>
-            <li><b>난이도</b>: 초보(Lv1)·중수(Lv5)·고수(Lv10)에서 시작</li>
+            <li><b>10줄마다</b> 색 젤리가 곰에게 날아와 합체</li>
+            <li><b>50·80·100줄</b>에서 곰이 진화 (👑 100줄=황제)</li>
           </ul>
         </div>
       </div>
@@ -111,7 +118,7 @@
     </div>
   </div>
 
-  <!-- 스크립트: 의존 순서대로 로드 -->
+  <!-- 스크립트 -->
   <script src="src/js/config.js"></script>
   <script src="src/js/audio.js"></script>
   <script src="src/js/tetrominoes.js"></script>

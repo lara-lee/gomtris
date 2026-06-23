@@ -12,15 +12,6 @@ const CONFIG = {
 
   LINES_PER_LEVEL: 10, // 몇 줄을 지우면 레벨업 하는지
 
-  // 난이도: 레벨은 항상 1에서 시작하고, 기본 낙하 속도(배율)만 다름
-  // speed 가 클수록 같은 레벨에서도 더 빨리 떨어짐
-  DIFFICULTY: {
-    easy:   { label: '초보', speed: 1.0 },
-    normal: { label: '중수', speed: 1.6 },
-    hard:   { label: '고수', speed: 2.4 },
-  },
-  DEFAULT_DIFFICULTY: 'easy',
-
   COUNTDOWN_FROM: 3,    // 시작 카운트다운 숫자
   LINE_CLEAR_MS: 280,   // 줄 제거 애니메이션 시간(ms)
 

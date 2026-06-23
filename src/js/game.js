@@ -6,20 +6,10 @@ class Game {
     this.board = new Board();
     this.bag = new BagRandomizer();
     this.highScore = Number(localStorage.getItem(CONFIG.STORAGE_KEY) || 0);
-    this.difficulty = CONFIG.DEFAULT_DIFFICULTY;
     this.onState = () => {};     // HUD 갱신 콜백
     this.onCountdown = () => {};  // 카운트다운 표시 콜백
     this._tick = this._tick.bind(this);
     this._reset();
-  }
-
-  setDifficulty(key) {
-    if (CONFIG.DIFFICULTY[key]) this.difficulty = key;
-    this._render();
-  }
-
-  get speedFactor() {
-    return CONFIG.DIFFICULTY[this.difficulty].speed;
   }
 
   // 현재 진행 단계
@@ -82,13 +72,12 @@ class Game {
     Sound.setBgmRate(rate);
   }
 
-  // 현재 낙하 간격(ms): 레벨이 오를수록, 난이도가 높을수록 짧아짐
+  // 현재 낙하 간격(ms): 레벨이 오를수록 짧아짐
   get gravity() {
-    const base = Math.max(
+    return Math.max(
       CONFIG.MIN_DROP_MS,
       CONFIG.BASE_DROP_MS - (this.level - 1) * CONFIG.STEP_DROP_MS
     );
-    return Math.max(CONFIG.MIN_DROP_MS / 2, base / this.speedFactor);
   }
 
   _spawn() {
@@ -253,7 +242,6 @@ class Game {
       lines: this.lines,
       level: this.level,
       highScore: this.highScore,
-      difficulty: this.difficulty,
       phase: this.phase,
     });
   }
