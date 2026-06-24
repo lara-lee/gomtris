@@ -11,7 +11,6 @@ const Sound = {
   synth: {
     move:    [330, 0.03, 'square'],
     rotate:  [440, 0.04, 'square'],
-    soft:    [220, 0.02, 'square'],
     hard:    [110, 0.09, 'sawtooth'],
     lock:    [180, 0.05, 'square'],
     clear:   [660, 0.16, 'triangle'],
@@ -21,8 +20,6 @@ const Sound = {
     pause:   [400, 0.10, 'sine'],
     count:   [500, 0.10, 'square'],
     start:   [720, 0.16, 'triangle'],
-    jelly:   [620, 0.14, 'sine'],     // 젤리가 곰에 붙을 때
-    evolve:  [840, 0.35, 'triangle'], // 젤리곰 진화
   },
 
   // ===== 효과음 =====
