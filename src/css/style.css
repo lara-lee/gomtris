@@ -68,17 +68,17 @@ h1 {
   padding: 4px 8px;
 }
 /* 좌측 최상단 접속자 수 */
+/* 좌측 최상단 접속자 수 */
 .visitors {
   position: absolute; top: 12px; left: 14px; z-index: 2;
-  font-size: .64rem; font-weight: 900; letter-spacing: .5px;
-  color: var(--muted); display: none;
+  font-size: .64rem; font-weight: 900; letter-spacing: .5px; color: var(--muted);
+  display: none;
 }
 .visitors.show { display: block; }
-/* 우측 최상단 나가기 버튼 */
+/* 우측 최상단 나가기 */
 .exit-btn {
-  position: absolute; top: 10px; right: 12px; z-index: 5;
-  font-size: .58rem; padding: 5px 9px; letter-spacing: .5px;
-  background: #fff;
+  position: absolute; top: 10px; right: 12px; z-index: 6;
+  font-size: .58rem; padding: 5px 9px; letter-spacing: .5px; background: #fff;
 }
 .exit-btn:hover { background: var(--ink); color: #fff; }
 
@@ -352,33 +352,43 @@ kbd {
 /* ===== 모바일 레이아웃 정리 (≤720px) ===== */
 @media (max-width: 720px) {
   body {
-    padding: 8px;
-    gap: 8px;
-    /* 보드를 화면 높이에 맞춰 축소 (너비·높이 중 작은 값) */
-    --cell: min(8.4vw, 3vh);
+    padding: 0;            /* 화면 전체 폭 사용 */
+    gap: 0;
+    --cell: min(8.6vw, 3vh);
     --preview-cell: 12px;
   }
-  .poster { padding: 10px 10px 12px; border-width: 3px; }
-  .poster-header { padding-bottom: 8px; margin-bottom: 10px; gap: 8px; }
-  h1 { font-size: 1.5rem; letter-spacing: 2px; -webkit-text-stroke-width: 1.5px; }
-  .tag { font-size: .5rem; padding: 3px 6px; }
+  /* 바깥 검정 프레임 제거 → 좌우 꽉 차게 (위/아래만 얇은 선) */
+  .poster {
+    width: 100%;
+    border-width: 2px 0;
+    padding: 6px 8px 10px;
+  }
 
-  .layout { flex-direction: column; align-items: center; gap: 8px; }
-  /* 정보 패널: 보드 위·아래로 한 줄씩 컴팩트하게 */
+  /* 헤더: 접속자수/나가기 버튼 줄 아래로 제목을 내려 겹침 방지 */
+  .visitors { top: 9px; left: 10px; font-size: .6rem; }
+  .exit-btn { top: 7px; right: 10px; font-size: .52rem; padding: 4px 8px; }
+  .poster-header { margin-top: 24px; padding-bottom: 7px; margin-bottom: 8px; gap: 6px; }
+  h1 { font-size: 1.4rem; letter-spacing: 1px; -webkit-text-stroke-width: 1.5px; }
+  .tag { font-size: .46rem; padding: 3px 5px; letter-spacing: 1px; }
+
+  .layout { flex-direction: column; align-items: center; gap: 6px; }
   .side {
     flex-direction: row; width: 100%; flex-wrap: wrap;
     justify-content: center; gap: 6px;
   }
-  .panel { padding: 5px 9px; min-width: 64px; }
-  .panel h2 { font-size: .52rem; margin-bottom: 3px; padding-bottom: 3px; letter-spacing: .5px; }
+  /* 검정 박스 슬림화 */
+  .panel { padding: 5px 8px; border-width: 2px; min-width: 60px; }
+  .panel h2 { font-size: .5rem; margin-bottom: 3px; padding-bottom: 3px; letter-spacing: .5px; }
   .stat { font-size: 1.05rem; }
-  .stat.small { font-size: .85rem; }
-  .gom-max { font-size: .7rem; }
-  /* HOLD/NEXT 미리보기 라벨과 격자 가로 배치로 높이 절약 */
-  .preview { margin-top: 2px; }
+  .stat.small { font-size: .82rem; }
+  .best { font-size: .5rem; }
+  .gom-max { font-size: .66rem; }
+  #board { border-width: 2px; }
+  .preview { border-width: 2px; margin-top: 2px; }
+  .pet-box { height: 104px; border-width: 2px; }
 
-  .toolbar { margin-top: 10px; padding-top: 10px; gap: 6px; }
-  .toolbar button { font-size: .62rem; padding: 7px 10px; }
+  .toolbar { margin-top: 8px; padding-top: 8px; gap: 6px; border-top-width: 2px; }
+  .toolbar button { font-size: .62rem; padding: 7px 10px; border-width: 2px; }
 }
 
 /* =========================================================
