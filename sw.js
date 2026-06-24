@@ -1,7 +1,7 @@
 /* sw.js — Gomtris 서비스워커 (오프라인 캐시 + 설치형 PWA)
  * 앱 쉘을 캐시해 두고, 오프라인에서도 실행되게 함.
  */
-const CACHE = 'gomtris-v4';
+const CACHE = 'gomtris-v6';
 
 const ASSETS = [
   './',
@@ -13,17 +13,11 @@ const ASSETS = [
   './src/js/tetrominoes.js',
   './src/js/board.js',
   './src/js/renderer.js',
-  './src/js/jellybear.js',
   './src/js/game.js',
   './src/js/input.js',
   './src/js/touch.js',
   './src/js/main.js',
   './assets/gomimg/pink.png',
-  './assets/gomimg/orange.png',
-  './assets/gomimg/yellow.png',
-  './assets/gomimg/green.png',
-  './assets/gomimg/blue.png',
-  './assets/gomimg/white.png',
   './icon-192.png',
   './icon-512.png',
 ];
@@ -48,7 +42,7 @@ self.addEventListener('activate', (e) => {
 // (옛 버전이 캐시에 박혀 안 보이는 문제 방지)
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
-  // 외부(교차 출처) 요청은 그대로 통과 (예: 접속자 카운터)
+  // 외부(교차 출처) 요청은 그대로 통과 (예: 제목 폰트 CDN)
   if (new URL(e.request.url).origin !== self.location.origin) return;
   e.respondWith(
     fetch(e.request)

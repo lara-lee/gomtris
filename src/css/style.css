@@ -1,18 +1,15 @@
-/* style.css — Gomtris : Y2K 포스터 테마 (정제된 버전)
- * 흰 포스터 카드 + 검정 외곽선 + 절제된 액센트 + 네온 블록, 보드 뒤 젤리곰
- */
+/* style.css — Gomtris : 깨끗한 흰 배경 + 픽셀풍 멀티컬러 제목 + 플랫 캔디 블록 */
 :root {
-  --cell: 30px;
-  --preview-cell: 15px;
-  --ink: #2b2530;
-  --paper: #f3eef0;
-  --board-bg: #fcfaf7;
+  /* 데스크톱: 세로 화면에 맞춰 최대한 크게 (최대 36px) */
+  --cell: min(36px, calc((100vh - 230px) / 20));
+  --ink: #3a3540;
+  --board-bg: #ffffff;
   --card: #ffffff;
-  --muted: #9a8f94;
-  --pink: #ff5d8f;
-  --cyan: #2ec5e6;
-  --line: rgba(43,37,48,0.10);      /* 은은한 테두리 */
-  --soft: 0 10px 34px rgba(43,37,48,0.10);  /* 부드러운 그림자 */
+  --muted: #b3acb8;
+  --pink: #fd6a8e;
+  --line: rgba(58,53,64,0.08);             /* 아주 옅은 테두리 */
+  --grid: #eef0f3;                         /* 보드 격자선 (연한 회색) */
+  --soft: 0 8px 30px rgba(58,53,64,0.07);  /* 부드러운 그림자 */
 }
 * { box-sizing: border-box; }
 body {
@@ -26,9 +23,7 @@ body {
   padding: 28px 16px;
   font-family: "Helvetica Neue", Arial, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   color: var(--ink);
-  background:
-    radial-gradient(1200px 600px at 50% -10%, #fff0f4 0%, transparent 60%),
-    linear-gradient(165deg, #fbf3f5 0%, #f1ece6 100%);
+  background: #ffffff;
 }
 
 /* ===== 포스터 프레임 ===== */
@@ -51,41 +46,22 @@ body {
   padding-bottom: 16px;
   margin-bottom: 20px;
 }
-h1 {
-  margin: 0;
-  font-size: 2.1rem;
-  font-weight: 900;
-  letter-spacing: 6px;
-  background: linear-gradient(90deg,#ff5d8f,#ff9a4d,#ffd24d,#7be06a,#3ec9e6);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(43,37,48,0.35);
-  filter: drop-shadow(0 2px 4px rgba(255,93,143,0.18));
+h1 { margin: 0; }
+/* 픽셀풍 멀티컬러 제목 (글자별 색은 인라인) */
+.pixel-title {
+  font-family: "Press Start 2P", "Courier New", monospace;
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 1;
+  filter: drop-shadow(0 3px 0 rgba(58,53,64,0.10));
 }
-.tag {
-  font-size: .56rem;
-  font-weight: 800;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  background: var(--ink);
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 999px;
-}
-/* GOMTRIS 양옆 젤리곰 장식 */
+.pixel-title span { display: inline-block; }
+/* 제목 옆 작은 젤리곰 로고 */
 .title-gom {
-  width: 44px; height: auto; display: block;
-  filter: drop-shadow(0 4px 6px rgba(43,37,48,0.18));
+  width: 36px; height: auto; display: block;
+  filter: drop-shadow(0 4px 6px rgba(58,53,64,0.16));
 }
-/* 좌측 최상단 접속자 수 */
-/* 좌측 최상단 접속자 수 */
-.visitors {
-  position: absolute; top: 12px; left: 14px; z-index: 2;
-  font-size: .64rem; font-weight: 900; letter-spacing: .5px; color: var(--muted);
-  display: none;
-}
-.visitors.show { display: block; }
 /* 우측 최상단 나가기 */
 .exit-btn {
   position: absolute; top: 10px; right: 12px; z-index: 6;
@@ -93,122 +69,27 @@ h1 {
 }
 .exit-btn:hover { background: var(--ink); color: #fff; }
 
-/* ===== 레이아웃 ===== */
-/* 세로: HUD(정보 슬림 바) 위, 보드(메인) 아래 */
+/* ===== 레이아웃 (점수 한 줄 위, 보드 메인 아래) ===== */
 .layout { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-/* 슬림 세그먼트 바 — 균등 4칸(구분선), 각 칸 가운데 정렬 */
-.hud {
-  display: flex; align-items: stretch; justify-content: space-between;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(43,37,48,0.05);
-  overflow: hidden;
+/* 점수 텍스트 한 줄 */
+.scoreline {
+  display: flex; align-items: baseline; justify-content: center; gap: 10px;
+  font-size: .72rem; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--muted);
 }
-.hud-cell {
-  flex: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: flex-start; gap: 6px;
-  padding: 11px 8px;
-  border-left: 1px solid var(--line);
-}
-.hud-cell:first-child { border-left: none; }
-.hud-cell h2 {
-  font-size: .56rem; border: none; padding: 0; margin: 0;
-  letter-spacing: 1.5px; color: var(--ink); text-transform: uppercase;
-}
-.hud-cell .stat { font-size: 1.4rem; line-height: 1; }
-.hud-cell .best { font-size: .52rem; margin: 0; color: var(--muted); }
-.hud-cell .best span { color: var(--ink); }
-.hud-next #next { margin: 0; }
-/* 곰 셀 */
-.hud-gom .pet-row { display: flex; align-items: center; gap: 6px; }
-.hud .pet-box { height: auto; width: auto; border: none; background: none; padding: 0; overflow: visible; display: flex; align-items: center; }
-.hud .pet-box img { width: 40px !important; height: auto; display: block !important; }
-.hud .pet-out { display: none !important; }
-.pet-stage { font-weight: 900; font-size: 1rem; }
-.pet-stage #gom { color: var(--pink); }
-.pet-stage .gom-max { font-size: .64rem; color: var(--muted); }
+.score-item b { color: var(--ink); font-size: 1.15rem; font-variant-numeric: tabular-nums; margin-left: 5px; }
+.score-dot { color: var(--line); }
+.board-wrap { position: relative; }
 
-/* My Gom 셀: 🐻 + 모은 젤리곰 개수 */
-.hud-gom .gomstat { display: flex; align-items: center; gap: 5px; justify-content: center; }
-.gom-bear { font-size: 1.15rem; line-height: 1; }
-.hud-gom #gomcount { color: var(--pink); }
-
-/* ===== 오늘의 말 (포춘) — 젤리 팝업 ===== */
-.fortune-overlay {
-  position: fixed; inset: 0; display: none;
-  align-items: center; justify-content: center;
-  background: rgba(43,37,48,0.34); backdrop-filter: blur(2px);
-  z-index: 120; padding: 20px;
-}
-.fortune-overlay.show { display: flex; }
-.fortune-card {
-  background: var(--card); border: 1px solid var(--line);
-  border-radius: 24px; box-shadow: 0 24px 60px rgba(43,37,48,0.28);
-  width: min(300px, 100%); padding: 26px 24px 22px; text-align: center;
-  display: flex; flex-direction: column; align-items: center; gap: 12px;
-}
-.fortune-bear { width: 76px; height: auto; filter: drop-shadow(0 6px 10px rgba(255,93,143,0.25)); }
-.fortune-label { font-size: .82rem; font-weight: 800; letter-spacing: 2px; color: var(--pink); }
-.fortune-msg { margin: 0; font-size: .98rem; line-height: 1.6; color: var(--ink); min-height: 2.2em; }
-.fortune-card .primary { width: 100%; }
-
-.panel { border: 2px solid var(--ink); padding: 10px 12px; background: var(--card); }
-.panel h2 {
-  margin: 0 0 8px;
-  font-size: .6rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--ink);
-  border-bottom: 2px solid var(--ink);
-  padding-bottom: 5px;
-}
-.stat { font-size: 1.6rem; font-weight: 900; font-variant-numeric: tabular-nums; }
-.stat.small { font-size: 1.15rem; color: var(--muted); }
-/* SCORE 안의 최고기록 */
-.best { margin-top: 4px; font-size: .58rem; font-weight: 800; letter-spacing: .5px; color: var(--muted); }
-.best span { color: var(--ink); }
-
-/* My Gom 펫 박스 (애완곰 enclosure) — 1~8단계 곰이 박스 안 */
-.gom-pet { text-align: center; }
-.pet-box {
-  position: relative;
-  margin-top: 4px;
-  height: 150px;
-  border: 2px solid var(--ink);
-  background: linear-gradient(#fdfbf3 0%, #fdfbf3 74%, #efe9d6 74%, #efe9d6 100%); /* 바닥 느낌 */
-  display: flex; align-items: flex-end; justify-content: center;
-  padding-bottom: 8px;
-  overflow: hidden;
-}
-.pet-box img { display: block; height: auto; max-width: 100%; image-rendering: auto; transition: width .3s ease; }
-/* 9단계+ : 곰이 박스를 나감 */
-.pet-out {
-  display: none;
-  position: absolute; inset: 0;
-  flex-direction: column; align-items: center; justify-content: center;
-  font-size: .68rem; font-weight: 900; line-height: 1.5; color: var(--muted);
-  text-align: center;
-}
-.pet-stage { margin-top: 6px; font-weight: 900; letter-spacing: 1px; }
-#gom { font-size: 1.25rem; color: var(--pink); }          /* 단계 숫자 (= 레벨/속도 겸용) */
-.gom-max { font-size: .68rem; color: var(--muted); font-weight: 700; }
-/* 펫 박스를 핑크 테두리로 강조 (핵심 진행 지표) */
-.gom-pet { border-color: var(--pink); }
-
-/* DEV 버튼 (미리보기용 — 눈에 덜 띄게) */
-#dev-btn { font-size: .62rem; padding: 7px 12px; background: #efece3; color: #777; }
-#dev-btn:hover { background: var(--ink); color: #fff; }
-
-/* ===== 격자 ===== */
+/* ===== 격자 / 보드 ===== */
 .grid {
   display: grid;
   grid-template-columns: repeat(var(--cols), var(--cell));
   grid-template-rows: repeat(var(--rows), var(--cell));
   background-color: var(--board-bg);
   background-image:
-    linear-gradient(#e2e0d6 1px, transparent 1px),
-    linear-gradient(90deg, #e2e0d6 1px, transparent 1px);
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
   background-size: var(--cell) var(--cell);
 }
 #board {
@@ -221,28 +102,21 @@ h1 {
   touch-action: none;
   user-select: none;
 }
-.preview {
-  --cell: var(--preview-cell);
-  justify-content: center;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  margin: 4px auto 0;
-  overflow: hidden;
-}
 .cell { width: var(--cell); height: var(--cell); }
 
-/* ===== 젤리 블록 (둥글고 광택) ===== */
+/* ===== 블록 — 납작한 사각(살짝만 둥근 모서리) ===== */
 .block {
-  border-radius: 5px;
+  border-radius: 3px;
   box-shadow:
-    inset 3px 3px 4px rgba(255,255,255,0.8),
-    inset -3px -3px 5px rgba(0,0,0,0.16);
+    inset 0 0 0 1px rgba(255,255,255,0.14),
+    inset 0 -2px 3px rgba(0,0,0,0.10);
 }
 .block.ghost {
   background: transparent !important;
-  border: 2px dashed var(--ink);
+  background-image: none !important;
+  border: 2px dashed var(--muted);
   box-shadow: none;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 .cell.clearing {
   animation: flash 0.28s steps(2, start) 2;
@@ -251,29 +125,16 @@ h1 {
 }
 @keyframes flash { 0%,100% { opacity: 1; } 50% { opacity: 0.1; } }
 
-/* 블록 색 = 곰 색 팔레트 (핑크·주황·노랑·초록·파랑) */
-.I { background:#2ec5e6; }  /* blue  */
-.J { background:#2ec5e6; }  /* blue  */
-.O { background:#ffd23d; }  /* yellow */
-.T { background:#ff5d8f; }  /* pink  */
-.S { background:#6ee04a; }  /* green */
-.Z { background:#ff8a3d; }  /* orange */
-.L { background:#ff8a3d; }  /* orange */
+/* 블록 색 = 젤리곰 이미지에서 추출한 색 (background-color 로 두어 광택 유지) */
+.I { background-color:#6ed3f7; }  /* 파랑 곰 */
+.J { background-color:#6ed3f7; }  /* 파랑 곰 */
+.O { background-color:#fdd22c; }  /* 노랑 곰 */
+.T { background-color:#fd95b2; }  /* 핑크 곰 */
+.S { background-color:#aed41c; }  /* 초록 곰 */
+.Z { background-color:#fd6208; }  /* 주황 곰 */
+.L { background-color:#fd6208; }  /* 주황 곰 */
 
-/* ===== 보드 래퍼 ===== */
-.board-wrap { position: relative; }
-
-/* 젤리곰 무대: 포스터 안쪽 전체. z-index:-1 이라 포스터 배경 위·내용(패널/보드) 아래에
-   깔려서, 가운데 보드와 패널은 곰을 가리고 헤더/푸터/여백에서만 곰이 보이며 돌아다님 */
-#bear-stage {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* ===== 오버레이 = Y2K 윈도우 (중앙 정렬) ===== */
+/* ===== 시작/일시정지/게임오버 오버레이 (보드 위 중앙) ===== */
 .overlay {
   position: absolute;
   inset: 0;
@@ -281,7 +142,7 @@ h1 {
   display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(43,37,48,0.30);
+  background: rgba(58,53,64,0.30);
   backdrop-filter: blur(2px);
   padding: 16px;
 }
@@ -291,7 +152,7 @@ h1 {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 20px;
-  box-shadow: 0 24px 60px rgba(43,37,48,0.28);
+  box-shadow: 0 24px 60px rgba(58,53,64,0.28);
   overflow: hidden;
 }
 .overlay-bar {
@@ -311,16 +172,11 @@ h1 {
   align-items: center;
   gap: 14px;
 }
-.overlay-content h3 {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 900;
-  letter-spacing: 2px;
-}
+.overlay-content h3 { margin: 0; font-size: 1.5rem; font-weight: 900; letter-spacing: 2px; }
 .overlay-content p { margin: 0; font-size: .76rem; color: var(--muted); }
 .overlay-content .primary { width: 100%; }
 
-/* ===== 버튼 (둥글고 부드러움) ===== */
+/* ===== 버튼 ===== */
 button {
   cursor: pointer;
   font-family: inherit;
@@ -332,23 +188,23 @@ button {
   color: var(--ink);
   padding: 10px 18px;
   font-size: .82rem;
-  box-shadow: 0 3px 10px rgba(43,37,48,0.06);
+  box-shadow: 0 3px 10px rgba(58,53,64,0.06);
   transition: background .15s, color .15s, transform .08s, box-shadow .15s;
 }
-button:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(43,37,48,0.12); }
-button:active { transform: translateY(0); box-shadow: 0 2px 6px rgba(43,37,48,0.08); }
+button:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(58,53,64,0.12); }
+button:active { transform: translateY(0); box-shadow: 0 2px 6px rgba(58,53,64,0.08); }
 button:disabled { opacity: 0.45; cursor: default; transform: none; box-shadow: none; }
 .primary {
   background: linear-gradient(135deg, var(--pink), #ff8a5d);
   color: #fff; border-color: transparent;
-  box-shadow: 0 6px 18px rgba(255,93,143,0.32);
+  box-shadow: 0 6px 18px rgba(253,106,142,0.32);
 }
-.primary:hover { box-shadow: 0 10px 24px rgba(255,93,143,0.42); }
+.primary:hover { box-shadow: 0 10px 24px rgba(253,106,142,0.42); }
 #mute-btn.off { color: var(--muted); }
 
 /* 키 표시 */
 kbd {
-  background: #f0eee6;
+  background: #f3f1f4;
   border: 1.5px solid var(--ink);
   padding: 1px 6px;
   font-size: .72rem;
@@ -369,7 +225,7 @@ kbd {
 }
 .toolbar button { font-size: .72rem; padding: 8px 14px; }
 
-/* ===== 도움말 (가독성 개선) ===== */
+/* ===== 도움말 ===== */
 .help-overlay {
   position: fixed; inset: 0; display: none;
   align-items: center; justify-content: center;
@@ -381,12 +237,11 @@ kbd {
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 20px;
-  box-shadow: 0 24px 60px rgba(43,37,48,0.28);
+  box-shadow: 0 24px 60px rgba(58,53,64,0.28);
   overflow: hidden;
   width: min(580px, 100%);
   cursor: default;
 }
-/* 타이틀 바 */
 .help-bar {
   background: linear-gradient(90deg, var(--pink), #ff8a5d); color: #fff;
   font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
@@ -398,113 +253,65 @@ kbd {
   margin: 0 0 14px; font-size: .82rem; font-weight: 900; letter-spacing: 1px;
   display: inline-block; background: var(--pink); color: #fff; padding: 4px 12px;
 }
-
 /* 키 → 동작 정렬 그리드 */
 .keylist { display: grid; grid-template-columns: auto 1fr; gap: 9px 14px; margin: 0; align-items: center; }
 .keylist dt { display: flex; gap: 4px; }
 .keylist dd { margin: 0; font-size: .9rem; color: #333; }
 .keylist .dim { color: var(--muted); font-size: .8rem; }
-
 /* 규칙 목록 */
 .rules { margin: 0; padding: 0; list-style: none; }
 .rules li {
   font-size: .9rem; line-height: 1.5; color: #333;
   padding: 9px 0 9px 18px; position: relative;
-  border-bottom: 1px dashed #dcdcd2;
+  border-bottom: 1px dashed #e6e3ea;
 }
 .rules li:last-child { border-bottom: none; }
 .rules li::before { content: "›"; position: absolute; left: 2px; color: var(--pink); font-weight: 900; }
 .rules b { color: var(--ink); }
-
 .help-touch {
   margin: 16px 0 0; font-size: .78rem; line-height: 1.5; color: #555;
-  background: #f3f1e8; border: 2px solid var(--ink); padding: 8px 10px;
+  background: #f6f4f8; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px;
 }
 .help-touch b { color: var(--ink); }
-
 .help-close-btn {
   display: block; width: calc(100% - 44px); margin: 14px 22px 22px;
   background: var(--ink); color: #fff;
 }
 .help-close-btn:hover { background: var(--pink); }
-
-/* 키캡 크게 (도움말 가독성) */
 .help-card kbd {
   min-width: 24px; text-align: center; display: inline-block;
   font-size: .8rem; padding: 3px 8px;
 }
 
-/* ===== 모바일 레이아웃 정리 (≤720px) ===== */
+/* ===== 모바일 (≤720px) — 보드를 화면에 꽉 차게 ===== */
 @media (max-width: 720px) {
   body {
-    padding: 0;            /* 화면 전체 폭 사용 */
+    padding: 0;
     gap: 0;
-    --cell: min(9vw, 3.9vh);   /* 보드를 메인으로 크게 */
-    --preview-cell: 9px;
+    /* 가로폭을 거의 꽉(9.7vw) 채우되, 세로가 모자라면 화면 높이에 맞춤 */
+    --cell: min(9.7vw, calc((100vh - 130px) / 20));
     overflow-x: hidden;
   }
-  /* 바깥 검정 프레임 제거 → 좌우 꽉 차게 (위/아래만 얇은 선) */
   .poster {
     width: 100%;
-    border-width: 2px 0;
-    padding: 6px 8px 10px;
+    border-width: 1px 0;
+    padding: 4px 2px 6px;
   }
+  .exit-btn { top: 6px; right: 8px; font-size: .52rem; padding: 4px 8px; }
+  /* 헤더(제목)·점수를 위로 바짝 붙여 보드 공간 확보 */
+  .poster-header { margin-top: 10px; padding-bottom: 5px; margin-bottom: 3px; gap: 8px; }
+  .pixel-title { font-size: 1.25rem; letter-spacing: 0; }
+  .title-gom { width: 32px; }
 
-  /* 헤더: 접속자수/나가기 버튼 줄 아래로 제목을 내려 겹침 방지 */
-  .visitors { top: 9px; left: 10px; font-size: .6rem; }
-  .exit-btn { top: 7px; right: 10px; font-size: .52rem; padding: 4px 8px; }
-  .poster-header { margin-top: 24px; padding-bottom: 7px; margin-bottom: 8px; gap: 6px; }
-  h1 { font-size: 1.4rem; letter-spacing: 1px; -webkit-text-stroke-width: 1.5px; }
-  .tag { font-size: .46rem; padding: 3px 5px; letter-spacing: 1px; }
-
-  /* HUD 세그먼트 바 (모바일) */
-  .layout { gap: 6px; width: 100%; align-items: stretch; }
-  .hud { width: 100%; border-width: 2px; }
-  .hud-cell { padding: 7px 3px; gap: 3px; }
-  .hud-cell h2 { font-size: .42rem; letter-spacing: .3px; }
-  .hud-cell .stat { font-size: 1rem; }
-  .hud-cell .best { font-size: .4rem; }
-  .hud .pet-box img { width: 30px !important; }
-  .pet-stage { font-size: .78rem; }
-  .pet-stage .gom-max { font-size: .54rem; }
-  #bear-stage { display: none; }
+  .layout { gap: 3px; width: 100%; align-items: stretch; }
+  /* SCORE/BEST 작게, 위로 */
+  .scoreline { justify-content: center; gap: 8px; font-size: .56rem; }
+  .score-item b { font-size: .9rem; margin-left: 3px; }
   #board { border-width: 2px; }
-  .preview { border-width: 2px; }
   .board-wrap { width: 100%; max-width: 100%; display: flex; justify-content: center; }
-  /* 오버레이도 보드 폭에 맞춤(회색 띠 제거) */
+  /* 오버레이를 보드 폭에 맞춤 */
   .overlay { left: 50%; right: auto; transform: translateX(-50%); width: calc(var(--cell) * 10 + 4px); }
 
-  .toolbar { margin-top: 8px; padding-top: 8px; gap: 6px; border-top-width: 2px; }
-  .toolbar button { font-size: .62rem; padding: 7px 10px; border-width: 2px; }
+  .toolbar { margin-top: 6px; padding-top: 6px; gap: 6px; }
+  .toolbar button { font-size: .62rem; padding: 7px 10px; }
 }
-
-/* =========================================================
-   젤리곰 (보드 뒤에서 걸어다님)
-   ========================================================= */
-/* 평소엔 우상단에 고정. 9단계 이상에서만 돌아다님 (.roaming) */
-.bear-walker { position: absolute; top: 8%; left: 84%; }
-.bear-walker.roaming { animation: roam 22s ease-in-out infinite; }
-.bear-walker.roaming .bear-face { animation: face 22s steps(1) infinite; }
-/* 곰은 단계별 SVG 이미지. 폭은 JS 가 단계에 맞춰 지정 (1단계 작게 → 11단계 크게) */
-.bear {
-  display: block;
-  width: 38px;
-  height: auto;
-  transform-origin: bottom center;
-  transition: width .4s cubic-bezier(.2,.9,.3,1.3);
-}
-.bear.pop, #pet-img.pop { animation: pop .5s ease; transform-origin: bottom center; }
-.bear[data-stage="11"] { filter: drop-shadow(0 0 7px #ffd400); }
-
-/* 포스터 안쪽 둘레를 도는 경로 (가운데 보드/패널에 가려져 헤더·푸터·여백에서 보임) */
-@keyframes roam {
-  0%   { left: 5%;  top: 8%; }
-  22%  { left: 82%; top: 7%; }
-  38%  { left: 88%; top: 40%; }
-  55%  { left: 80%; top: 90%; }
-  72%  { left: 16%; top: 92%; }
-  88%  { left: 6%;  top: 42%; }
-  100% { left: 5%;  top: 8%; }
-}
-@keyframes face { 0%, 22% { transform: scaleX(1); } 22.01%, 100% { transform: scaleX(-1); } }
-@keyframes pop { 0%,100% { transform: scale(1); } 40% { transform: scale(1.28); } }

@@ -8,7 +8,6 @@ class Game {
     this.highScore = Number(localStorage.getItem(CONFIG.STORAGE_KEY) || 0);
     this.onState = () => {};     // HUD 갱신 콜백
     this.onCountdown = () => {};  // 카운트다운 표시 콜백
-    this.onFortune = () => {};    // 젤리곰 10개 → "오늘의 말" 콜백
     this._tick = this._tick.bind(this);
     this._reset();
   }
@@ -29,13 +28,11 @@ class Game {
     this.lines = 0;
     this.level = 1;
     this.nextType = this.bag.next();
-    this.bearColor = CONFIG.DEFAULT_BEAR;   // 2단계 진입 시 고정될 곰 색
     this.over = false;
     this.paused = false;
     this.counting = false;
     this.clearing = false;
     this.running = false;
-    this.fortunePaused = false;   // "오늘의 말" 팝업 중 정지
     this.dropAcc = 0;
     this.lastTime = 0;
     this._spawn();
@@ -109,19 +106,6 @@ class Game {
     }
   }
 
-  softDrop() {
-    if (!this._playable()) return;
-    if (this.board.isValid(this.piece, 1, 0)) {
-      this.piece.row++;
-      this.score += 1;
-      this.dropAcc = 0;
-      Sound.play('soft');
-      this._render();
-    } else {
-      this._lock();
-    }
-  }
-
   hardDrop() {
     if (!this._playable()) return;
     const dist = this.board.dropDistance(this.piece);
@@ -175,11 +159,10 @@ class Game {
     }
   }
 
-  _playable() { return this.running && !this.paused && !this.over && !this.clearing && !this.fortunePaused; }
+  _playable() { return this.running && !this.paused && !this.over && !this.clearing; }
 
   // 피스 고정 → (줄제거 애니메이션) → 점수/레벨 → 새 피스
   _lock() {
-    const lockedType = this.piece.type;   // 이번에 놓은 블록 (줄 지우면 이 색 곰 등장)
     this.board.merge(this.piece);
     Sound.play('lock');
     const full = this.board.getFullRows();
@@ -200,48 +183,19 @@ class Game {
     setTimeout(() => {
       this.board.removeRows(full);
       const cleared = full.length;
-      const prevLines = this.lines;
       this.score += (CONFIG.SCORE_TABLE[cleared] || 0) * this.level;
       this.lines += cleared;
-      // 곰 색은 "2단계(10줄) 진입 순간 한 번만" 그 블록 색으로 고정 (이후 유지)
-      if (prevLines < CONFIG.LINES_PER_LEVEL && this.lines >= CONFIG.LINES_PER_LEVEL) {
-        this.bearColor = CONFIG.PIECE_BEAR[lockedType] || this.bearColor;
-      }
       const newLevel = Math.floor(this.lines / CONFIG.LINES_PER_LEVEL) + 1;
       if (newLevel > this.level) { this.level = newLevel; Sound.play('levelup'); this._updateBgmTempo(); }
       this.clearing = false;
       this._spawn();
       this._render();
-      // 젤리곰(=지운 줄) 10개 단위를 넘기면 "오늘의 말"
-      const per = CONFIG.GOM_PER_FORTUNE;
-      if (Math.floor(prevLines / per) < Math.floor(this.lines / per)) this._showFortune();
     }, CONFIG.LINE_CLEAR_MS);
-  }
-
-  // 젤리곰 10개 달성 → 게임 멈추고 "오늘의 말" 표시
-  _showFortune() {
-    if (this.over) return;
-    this.fortunePaused = true;
-    Sound.pauseBgm();
-    Sound.play('levelup');
-    const list = CONFIG.FORTUNES;
-    const msg = list[Math.floor(Math.random() * list.length)];
-    const color = CONFIG.GOM_COLORS[Math.floor(Math.random() * CONFIG.GOM_COLORS.length)];
-    this.onFortune(msg, color);
-  }
-
-  // "오늘의 말" 닫기 → 게임 재개
-  resumeFortune() {
-    if (!this.fortunePaused) return;
-    this.fortunePaused = false;
-    Sound.resumeBgm();
-    this.lastTime = 0;
-    requestAnimationFrame(this._tick);
   }
 
   // ===== 메인 루프 =====
   _tick(time) {
-    if (!this.running || this.paused || this.over || this.fortunePaused) return;
+    if (!this.running || this.paused || this.over) return;
     if (this.clearing) { requestAnimationFrame(this._tick); return; } // 애니 중 대기
     if (!this.lastTime) this.lastTime = time;
     const delta = time - this.lastTime;
@@ -257,13 +211,11 @@ class Game {
 
   _render() {
     this.renderer.drawBoard(this.board, (this.over || this.clearing) ? null : this.piece);
-    this.renderer.drawNext(this.nextType);
     this.onState({
       score: this.score,
       lines: this.lines,
       level: this.level,
       highScore: this.highScore,
-      bearColor: this.bearColor,
       phase: this.phase,
     });
   }

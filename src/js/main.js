@@ -3,21 +3,17 @@
 window.addEventListener('DOMContentLoaded', () => {
   const renderer = new Renderer();
   const game = new Game(renderer);
-  // (주석) 젤리곰 성장 시스템 — 그냥 테트리스로
-  // const bear = new JellyBear();
   Sound.enabled = true;
   Sound.initBgm();   // 배경음(bgm.mp3) 준비
 
   // ----- DOM 참조 -----
   const $ = (id) => document.getElementById(id);
   const $score = $('score'), $high = $('high');
-  const $gomcount = $('gomcount'), $gomnext = $('gomnext');
   const $overlay = $('overlay'), $overlayTitle = $('overlay-title'), $overlayText = $('overlay-text');
   const $startBtn = $('start');
   const $pauseBtn = $('pause-btn');
   const $help = $('help'), $helpBtn = $('help-btn');
   const $muteBtn = $('mute-btn');
-  const $fortune = $('fortune'), $fortuneMsg = $('fortune-msg'), $fortuneBear = $('fortune-bear');
 
   // 시작 버튼 라벨(상태별)
   const BTN_LABEL = { idle: '게임 시작', paused: '계속하기', over: '다시 시작' };
@@ -36,10 +32,6 @@ window.addEventListener('DOMContentLoaded', () => {
   game.onState = (s) => {
     $score.textContent = s.score.toLocaleString();
     $high.textContent = s.highScore.toLocaleString();
-    // 젤리곰 = 지운 줄 수, 다음 "오늘의 말"까지 남은 개수
-    const per = CONFIG.GOM_PER_FORTUNE;
-    $gomcount.textContent = s.lines;
-    $gomnext.textContent = per - (s.lines % per);
 
     // 일시정지 버튼은 플레이 중에만 활성
     $pauseBtn.disabled = (s.phase !== 'playing' && s.phase !== 'paused');
@@ -49,18 +41,21 @@ window.addEventListener('DOMContentLoaded', () => {
     if (s.phase === 'over') {
       $overlayTitle.textContent = 'GAME OVER';
       $overlayText.textContent = `점수 ${s.score.toLocaleString()}`;
+      $overlayText.style.display = '';
       $startBtn.textContent = BTN_LABEL.over;
       $startBtn.style.display = '';
       $overlay.classList.add('show');
     } else if (s.phase === 'paused') {
       $overlayTitle.textContent = 'PAUSED';
       $overlayText.textContent = '잠시 멈춤';
+      $overlayText.style.display = '';
       $startBtn.textContent = BTN_LABEL.paused;
       $startBtn.style.display = '';
       $overlay.classList.add('show');
     } else if (s.phase === 'idle') {
       $overlayTitle.textContent = 'GOMTRIS';
-      $overlayText.textContent = '게임을 시작하세요';
+      $overlayText.textContent = '';
+      $overlayText.style.display = 'none';   // 안내 문구 없이 깔끔하게
       $startBtn.textContent = BTN_LABEL.idle;
       $startBtn.style.display = '';
       $overlay.classList.add('show');
@@ -90,18 +85,6 @@ window.addEventListener('DOMContentLoaded', () => {
   });
   $pauseBtn.addEventListener('click', () => game.togglePause());
 
-  // 젤리곰 10개 → "오늘의 말" 포춘
-  game.onFortune = (msg, color) => {
-    $fortuneMsg.textContent = msg;
-    if ($fortuneBear && color) $fortuneBear.src = 'assets/gomimg/' + color + '.png';
-    $fortune.classList.add('show');
-  };
-  const $fortuneClose = $('fortune-close');
-  if ($fortuneClose) $fortuneClose.addEventListener('click', () => {
-    $fortune.classList.remove('show');
-    game.resumeFortune();
-  });
-
   // 나가기(우상단) → 타이틀로 복귀 + 소리 정지
   const $exitBtn = $('exit-btn');
   if ($exitBtn) $exitBtn.addEventListener('click', () => game.quit());
@@ -116,7 +99,7 @@ window.addEventListener('DOMContentLoaded', () => {
   if ($helpBtn) $helpBtn.addEventListener('click', () => ui.toggleHelp());
   if ($muteBtn) $muteBtn.addEventListener('click', () => ui.toggleMute());
 
-  // (주석) DEV 곰 미리보기 — 그냥 테트리스로
+  // 도움말 패널: 바깥 클릭 / ✕ 버튼으로 닫기
   if ($help) {
     const closeHelp = () => $help.classList.remove('show');
     $help.addEventListener('click', closeHelp);                       // 배경(바깥) 클릭 → 닫기
@@ -125,22 +108,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const closeBtn = $help.querySelector('.help-close-btn');
     if (closeBtn) closeBtn.addEventListener('click', closeHelp);      // ✕ 버튼 → 닫기
   }
-
-  // 좌측 최상단 접속자 수 (무료 카운터 API · 실패 시 숨김)
-  (function () {
-    const el = $('visitors');
-    if (!el) return;
-    fetch('https://abacus.jasoncameron.dev/hit/gomtris-lee/visits3')
-      .then((r) => r.json())
-      .then((d) => {
-        const n = d && (typeof d.value === 'number' ? d.value : d.count);
-        if (typeof n === 'number') {
-          el.textContent = '👥 ' + n.toLocaleString();
-          el.classList.add('show');
-        }
-      })
-      .catch(() => {});
-  })();
 
   // 초기 렌더 (시작 전 빈 보드 + 타이틀)
   game._render();

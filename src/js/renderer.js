@@ -1,11 +1,9 @@
-/* renderer.js — 보드/미리보기를 DOM 격자로 그림 (CSS 블록 스타일 사용) */
+/* renderer.js — 게임판을 DOM 격자로 그림 (CSS 블록 스타일 사용) */
 
 class Renderer {
   constructor() {
     this.boardEl = document.getElementById('board');
-    this.nextEl = document.getElementById('next');
     this.cells = this._buildGrid(this.boardEl, CONFIG.COLS, CONFIG.ROWS);
-    this.nextCells = this._buildGrid(this.nextEl, CONFIG.PREVIEW_SIZE, CONFIG.PREVIEW_SIZE);
   }
 
   // 격자 div 생성 후 셀 배열 반환
@@ -55,22 +53,6 @@ class Renderer {
       if (nr >= 0) this._paint(this.cells[nr * board.cols + nc], piece.color);
     }
   }
-
-  // 미리보기(NEXT) 그리기: 4x4 안에 가운데 정렬
-  _drawPreview(cells, type) {
-    cells.forEach(cell => this._paint(cell, null));
-    if (!type) return;
-    const piece = createPiece(type);
-    const shape = piece.shapes[0];
-    const size = shape.length;
-    const offset = Math.floor((CONFIG.PREVIEW_SIZE - size) / 2);
-    for (const [r, c] of Board.cellsOf(piece)) {
-      const idx = (r + offset) * CONFIG.PREVIEW_SIZE + (c + offset);
-      this._paint(cells[idx], piece.color);
-    }
-  }
-
-  drawNext(type) { this._drawPreview(this.nextCells, type); }
 
   // 제거될 줄을 깜빡이게 (CSS 애니메이션) — 이후 drawBoard 가 클래스 초기화
   flashRows(rows) {

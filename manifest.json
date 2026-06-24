@@ -1,14 +1,14 @@
 {
-  "name": "Gomtris — LEE Edition",
+  "name": "Gomtris · 곰트리스",
   "short_name": "Gomtris",
-  "description": "곰돌이가 자라는 Y2K 블록 퍼즐 게임",
+  "description": "젤리곰 색 블록으로 즐기는 깔끔한 블록 퍼즐 게임",
   "lang": "ko",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#e9e6dd",
-  "theme_color": "#ff2e88",
+  "background_color": "#ffffff",
+  "theme_color": "#fd6a8e",
   "icons": [
     { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
     { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
