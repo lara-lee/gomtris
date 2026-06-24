@@ -3,7 +3,8 @@
 window.addEventListener('DOMContentLoaded', () => {
   const renderer = new Renderer();
   const game = new Game(renderer);
-  const bear = new JellyBear();   // 보드 뒤 젤리곰
+  // (주석) 젤리곰 성장 시스템 — 그냥 테트리스로
+  // const bear = new JellyBear();
   Sound.enabled = true;
   Sound.initBgm();   // 배경음(bgm.mp3) 준비
 
@@ -35,7 +36,7 @@ window.addEventListener('DOMContentLoaded', () => {
     $lines.textContent = s.lines;
     $high.textContent = s.highScore.toLocaleString();
 
-    bear.update(s.lines, s.bearColor);   // 젤리곰: 크기/단계숫자 갱신 + 색
+    // bear.update(s.lines, s.bearColor);   // (주석) 젤리곰
 
     // 일시정지 버튼은 플레이 중에만 활성
     $pauseBtn.disabled = (s.phase !== 'playing' && s.phase !== 'paused');
@@ -100,16 +101,7 @@ window.addEventListener('DOMContentLoaded', () => {
   if ($helpBtn) $helpBtn.addEventListener('click', () => ui.toggleHelp());
   if ($muteBtn) $muteBtn.addEventListener('click', () => ui.toggleMute());
 
-  // DEV: 핑크곰으로 1→11단계 크기 변화를 순서대로 미리보기
-  const $devBtn = $('dev-btn');
-  if ($devBtn) $devBtn.addEventListener('click', () => {
-    let s = 1;
-    const step = () => {
-      bear.preview(s, 'pink');
-      if (s < 11) { s++; setTimeout(step, 430); }
-    };
-    step();
-  });
+  // (주석) DEV 곰 미리보기 — 그냥 테트리스로
   if ($help) {
     const closeHelp = () => $help.classList.remove('show');
     $help.addEventListener('click', closeHelp);                       // 배경(바깥) 클릭 → 닫기

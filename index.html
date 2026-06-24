@@ -21,12 +21,14 @@
     <div id="visitors" class="visitors" title="누적 접속 수"></div>
     <button id="exit-btn" class="exit-btn" title="나가기">✕ 나가기</button>
 
-    <!-- 포스터 안쪽(가운데 보드 제외)을 돌아다니는 젤리곰 -->
-    <div id="bear-stage"></div>
+    <!-- (주석) 돌아다니는 젤리곰 성장 시스템 — 그냥 테트리스로 -->
+    <!-- <div id="bear-stage"></div> -->
 
-    <!-- 헤더 -->
+    <!-- 헤더 : 젤리곰이 GOMTRIS 양옆 장식 -->
     <header class="poster-header">
+      <img class="title-gom" src="assets/gomimg/pink.png" alt="">
       <h1>GOMTRIS</h1>
+      <img class="title-gom" src="assets/gomimg/blue.png" alt="">
       <span class="tag">LEE Edition</span>
     </header>
 
@@ -47,6 +49,7 @@
           <h2>Lines</h2>
           <div id="lines" class="stat">0</div>
         </div>
+        <!-- (주석) MY GOM 곰 단계 셀 — 그냥 테트리스로
         <div class="hud-cell hud-gom">
           <h2>My Gom</h2>
           <div class="pet-row">
@@ -57,6 +60,7 @@
             <span class="pet-stage"><b id="gom">1</b><span class="gom-max">/11</span></span>
           </div>
         </div>
+        -->
       </div>
 
       <!-- 게임판 (메인) -->
@@ -126,7 +130,7 @@
   <script src="src/js/tetrominoes.js"></script>
   <script src="src/js/board.js"></script>
   <script src="src/js/renderer.js"></script>
-  <script src="src/js/jellybear.js"></script>
+  <!-- <script src="src/js/jellybear.js"></script> (주석) 젤리곰 -->
   <script src="src/js/game.js"></script>
   <script src="src/js/input.js"></script>
   <script src="src/js/touch.js"></script>
