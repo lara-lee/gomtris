@@ -32,7 +32,7 @@
 
     <!-- 본문 -->
     <div class="layout">
-      <!-- 정보: 한 줄 슬림 바 (NEXT · SCORE · LINES · 곰) -->
+      <!-- 정보: 슬림 바 (NEXT · SCORE · LINES · 젤리곰) -->
       <div class="hud">
         <div class="hud-cell hud-next">
           <h2>Next</h2>
@@ -43,22 +43,11 @@
           <div id="score" class="stat">0</div>
           <div class="best">BEST <span id="high">0</span></div>
         </div>
-        <div class="hud-cell">
-          <h2>Lines</h2>
-          <div id="lines" class="stat">0</div>
-        </div>
-        <!-- (주석) MY GOM 곰 단계 셀 — 그냥 테트리스로
-        <div class="hud-cell hud-gom">
+        <div class="hud-cell hud-gom" title="1줄 = 젤리곰 1개 · 10개마다 오늘의 말">
           <h2>My Gom</h2>
-          <div class="pet-row">
-            <div class="pet-box">
-              <img id="pet-img" alt="my gom">
-              <div class="pet-out" id="pet-out">탈출!</div>
-            </div>
-            <span class="pet-stage"><b id="gom">1</b><span class="gom-max">/11</span></span>
-          </div>
+          <div class="stat gomstat"><span class="gom-bear">🐻</span><span id="gomcount">0</span></div>
+          <div class="best">다음 말까지 <span id="gomnext">10</span></div>
         </div>
-        -->
       </div>
 
       <!-- 게임판 (메인) -->
@@ -84,6 +73,16 @@
       <button id="mute-btn">🔊 소리 켬</button>
       <!-- 개발용 곰단계 미리보기 (기능 유지, 화면에서는 숨김) -->
       <!-- <button id="dev-btn">🐾 DEV 곰단계</button> -->
+    </div>
+  </div>
+
+  <!-- 젤리곰 10개 → 오늘의 말 (포춘) -->
+  <div id="fortune" class="fortune-overlay">
+    <div class="fortune-card">
+      <img id="fortune-bear" class="fortune-bear" src="assets/gomimg/pink.png" alt="">
+      <div class="fortune-label">🍪 오늘의 말</div>
+      <p id="fortune-msg" class="fortune-msg"></p>
+      <button id="fortune-close" class="primary">계속하기</button>
     </div>
   </div>
 

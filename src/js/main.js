@@ -10,12 +10,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // ----- DOM 참조 -----
   const $ = (id) => document.getElementById(id);
-  const $score = $('score'), $lines = $('lines'), $high = $('high');
+  const $score = $('score'), $high = $('high');
+  const $gomcount = $('gomcount'), $gomnext = $('gomnext');
   const $overlay = $('overlay'), $overlayTitle = $('overlay-title'), $overlayText = $('overlay-text');
   const $startBtn = $('start');
   const $pauseBtn = $('pause-btn');
   const $help = $('help'), $helpBtn = $('help-btn');
   const $muteBtn = $('mute-btn');
+  const $fortune = $('fortune'), $fortuneMsg = $('fortune-msg'), $fortuneBear = $('fortune-bear');
 
   // 시작 버튼 라벨(상태별)
   const BTN_LABEL = { idle: '게임 시작', paused: '계속하기', over: '다시 시작' };
@@ -33,10 +35,11 @@ window.addEventListener('DOMContentLoaded', () => {
   // ----- 상태 → 화면 -----
   game.onState = (s) => {
     $score.textContent = s.score.toLocaleString();
-    $lines.textContent = s.lines;
     $high.textContent = s.highScore.toLocaleString();
-
-    // bear.update(s.lines, s.bearColor);   // (주석) 젤리곰
+    // 젤리곰 = 지운 줄 수, 다음 "오늘의 말"까지 남은 개수
+    const per = CONFIG.GOM_PER_FORTUNE;
+    $gomcount.textContent = s.lines;
+    $gomnext.textContent = per - (s.lines % per);
 
     // 일시정지 버튼은 플레이 중에만 활성
     $pauseBtn.disabled = (s.phase !== 'playing' && s.phase !== 'paused');
@@ -86,6 +89,18 @@ window.addEventListener('DOMContentLoaded', () => {
     else if (p === 'paused') game.togglePause();
   });
   $pauseBtn.addEventListener('click', () => game.togglePause());
+
+  // 젤리곰 10개 → "오늘의 말" 포춘
+  game.onFortune = (msg, color) => {
+    $fortuneMsg.textContent = msg;
+    if ($fortuneBear && color) $fortuneBear.src = 'assets/gomimg/' + color + '.png';
+    $fortune.classList.add('show');
+  };
+  const $fortuneClose = $('fortune-close');
+  if ($fortuneClose) $fortuneClose.addEventListener('click', () => {
+    $fortune.classList.remove('show');
+    game.resumeFortune();
+  });
 
   // 나가기(우상단) → 타이틀로 복귀 + 소리 정지
   const $exitBtn = $('exit-btn');

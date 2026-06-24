@@ -8,6 +8,7 @@ class Game {
     this.highScore = Number(localStorage.getItem(CONFIG.STORAGE_KEY) || 0);
     this.onState = () => {};     // HUD 갱신 콜백
     this.onCountdown = () => {};  // 카운트다운 표시 콜백
+    this.onFortune = () => {};    // 젤리곰 10개 → "오늘의 말" 콜백
     this._tick = this._tick.bind(this);
     this._reset();
   }
@@ -34,6 +35,7 @@ class Game {
     this.counting = false;
     this.clearing = false;
     this.running = false;
+    this.fortunePaused = false;   // "오늘의 말" 팝업 중 정지
     this.dropAcc = 0;
     this.lastTime = 0;
     this._spawn();
@@ -173,7 +175,7 @@ class Game {
     }
   }
 
-  _playable() { return this.running && !this.paused && !this.over && !this.clearing; }
+  _playable() { return this.running && !this.paused && !this.over && !this.clearing && !this.fortunePaused; }
 
   // 피스 고정 → (줄제거 애니메이션) → 점수/레벨 → 새 피스
   _lock() {
@@ -210,12 +212,36 @@ class Game {
       this.clearing = false;
       this._spawn();
       this._render();
+      // 젤리곰(=지운 줄) 10개 단위를 넘기면 "오늘의 말"
+      const per = CONFIG.GOM_PER_FORTUNE;
+      if (Math.floor(prevLines / per) < Math.floor(this.lines / per)) this._showFortune();
     }, CONFIG.LINE_CLEAR_MS);
+  }
+
+  // 젤리곰 10개 달성 → 게임 멈추고 "오늘의 말" 표시
+  _showFortune() {
+    if (this.over) return;
+    this.fortunePaused = true;
+    Sound.pauseBgm();
+    Sound.play('levelup');
+    const list = CONFIG.FORTUNES;
+    const msg = list[Math.floor(Math.random() * list.length)];
+    const color = CONFIG.GOM_COLORS[Math.floor(Math.random() * CONFIG.GOM_COLORS.length)];
+    this.onFortune(msg, color);
+  }
+
+  // "오늘의 말" 닫기 → 게임 재개
+  resumeFortune() {
+    if (!this.fortunePaused) return;
+    this.fortunePaused = false;
+    Sound.resumeBgm();
+    this.lastTime = 0;
+    requestAnimationFrame(this._tick);
   }
 
   // ===== 메인 루프 =====
   _tick(time) {
-    if (!this.running || this.paused || this.over) return;
+    if (!this.running || this.paused || this.over || this.fortunePaused) return;
     if (this.clearing) { requestAnimationFrame(this._tick); return; } // 애니 중 대기
     if (!this.lastTime) this.lastTime = time;
     const delta = time - this.lastTime;
