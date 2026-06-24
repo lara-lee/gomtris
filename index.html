@@ -32,20 +32,22 @@
 
     <!-- 본문 -->
     <div class="layout">
-      <!-- 정보 한 줄 (HUD) : NEXT · SCORE · LINES · MY GOM(우측) -->
+      <!-- 정보 한 줄 (HUD) : [NEXT·SCORE·LINES 한 박스] + [MY GOM] -->
       <div class="hud">
-        <div class="panel">
-          <h2>Next</h2>
-          <div id="next" class="grid preview"></div>
-        </div>
-        <div class="panel">
-          <h2>Score</h2>
-          <div id="score" class="stat">0</div>
-          <div class="best">BEST <span id="high">0</span></div>
-        </div>
-        <div class="panel">
-          <h2>Lines</h2>
-          <div id="lines" class="stat">0</div>
+        <div class="panel stats-box">
+          <div class="mini mini-next">
+            <h2>Next</h2>
+            <div id="next" class="grid preview"></div>
+          </div>
+          <div class="mini">
+            <h2>Score</h2>
+            <div id="score" class="stat">0</div>
+            <div class="best">BEST <span id="high">0</span></div>
+          </div>
+          <div class="mini">
+            <h2>Lines</h2>
+            <div id="lines" class="stat">0</div>
+          </div>
         </div>
         <div class="panel gom-pet">
           <h2>My Gom 🐾</h2>

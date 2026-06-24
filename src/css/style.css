@@ -85,8 +85,16 @@ h1 {
 /* ===== 레이아웃 ===== */
 /* 세로: HUD(정보 한 줄) 위, 보드(메인) 아래 */
 .layout { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-.hud { display: flex; gap: 12px; justify-content: center; align-items: stretch; }
-.hud .panel { width: 132px; }
+.hud { display: flex; gap: 14px; justify-content: center; align-items: stretch; }
+/* NEXT·SCORE·LINES 를 한 박스(stats-box)에 묶음 */
+.stats-box { display: flex; gap: 22px; align-items: center; }
+.gom-pet { width: 130px; }
+.mini { display: flex; flex-direction: column; }
+.stats-box .mini h2 {
+  font-size: .62rem; border: none; padding: 0; margin: 0 0 6px; letter-spacing: 1px; color: var(--ink);
+}
+.mini .stat { font-size: 1.5rem; }
+.mini .best { margin-top: 3px; }
 
 .panel { border: 2px solid var(--ink); padding: 10px 12px; background: var(--card); }
 .panel h2 {
@@ -374,14 +382,15 @@ kbd {
   h1 { font-size: 1.4rem; letter-spacing: 1px; -webkit-text-stroke-width: 1.5px; }
   .tag { font-size: .46rem; padding: 3px 5px; letter-spacing: 1px; }
 
-  /* HUD: Grid 4등분(minmax(0,1fr))로 콘텐츠와 무관하게 항상 4칸 균등 */
+  /* HUD: [NEXT·SCORE·LINES 한 박스] + [곰] 2박스 */
   .layout { gap: 6px; width: 100%; align-items: stretch; }
-  .hud {
-    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 5px; width: 100%;
-  }
-  .hud .panel { min-width: 0; overflow: hidden; }
-  .panel { padding: 4px 4px; border-width: 2px; }
+  .hud { display: flex; gap: 6px; width: 100%; align-items: stretch; }
+  .stats-box { flex: 1 1 auto; gap: 6px; justify-content: space-around; min-width: 0; overflow: hidden; }
+  .gom-pet { flex: 0 0 auto; width: 76px; min-width: 0; overflow: hidden; }
+  .stats-box .mini { align-items: center; min-width: 0; }
+  .stats-box .mini h2 { font-size: .5rem; margin-bottom: 3px; }
+  .mini .stat { font-size: 1.1rem; }
+  .panel { padding: 5px 5px; border-width: 2px; }
   .board-wrap { width: 100%; max-width: 100%; display: flex; justify-content: center; }
 
   .panel h2 { font-size: .46rem; margin-bottom: 2px; padding-bottom: 2px; letter-spacing: .3px; }
