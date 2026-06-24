@@ -83,8 +83,10 @@ h1 {
 .exit-btn:hover { background: var(--ink); color: #fff; }
 
 /* ===== 레이아웃 ===== */
-.layout { display: flex; gap: 18px; align-items: flex-start; }
-.side { display: flex; flex-direction: column; gap: 14px; width: 138px; }
+/* 세로: HUD(정보 한 줄) 위, 보드(메인) 아래 */
+.layout { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.hud { display: flex; gap: 12px; justify-content: center; align-items: stretch; }
+.hud .panel { width: 132px; }
 
 .panel { border: 2px solid var(--ink); padding: 10px 12px; background: var(--card); }
 .panel h2 {
@@ -354,8 +356,9 @@ kbd {
   body {
     padding: 0;            /* 화면 전체 폭 사용 */
     gap: 0;
-    --cell: min(8.6vw, 3vh);
-    --preview-cell: 12px;
+    --cell: min(9vw, 3.9vh);   /* 보드를 메인으로 크게 */
+    --preview-cell: 9px;
+    overflow-x: hidden;
   }
   /* 바깥 검정 프레임 제거 → 좌우 꽉 차게 (위/아래만 얇은 선) */
   .poster {
@@ -371,21 +374,36 @@ kbd {
   h1 { font-size: 1.4rem; letter-spacing: 1px; -webkit-text-stroke-width: 1.5px; }
   .tag { font-size: .46rem; padding: 3px 5px; letter-spacing: 1px; }
 
-  .layout { flex-direction: column; align-items: center; gap: 6px; }
-  .side {
-    flex-direction: row; width: 100%; flex-wrap: wrap;
-    justify-content: center; gap: 6px;
+  /* HUD: Grid 4등분(minmax(0,1fr))로 콘텐츠와 무관하게 항상 4칸 균등 */
+  .layout { gap: 6px; width: 100%; align-items: stretch; }
+  .hud {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 5px; width: 100%;
   }
-  /* 검정 박스 슬림화 */
-  .panel { padding: 5px 8px; border-width: 2px; min-width: 60px; }
-  .panel h2 { font-size: .5rem; margin-bottom: 3px; padding-bottom: 3px; letter-spacing: .5px; }
-  .stat { font-size: 1.05rem; }
-  .stat.small { font-size: .82rem; }
-  .best { font-size: .5rem; }
-  .gom-max { font-size: .66rem; }
+  .hud .panel { min-width: 0; overflow: hidden; }
+  .panel { padding: 4px 4px; border-width: 2px; }
+  .board-wrap { width: 100%; max-width: 100%; display: flex; justify-content: center; }
+
+  .panel h2 { font-size: .46rem; margin-bottom: 2px; padding-bottom: 2px; letter-spacing: .3px; }
+  .stat { font-size: 1rem; }
+  .stat.small { font-size: .78rem; }
+  .best { font-size: .46rem; }
+  .gom-max { font-size: .62rem; }
   #board { border-width: 2px; }
   .preview { border-width: 2px; margin-top: 2px; }
-  .pet-box { height: 104px; border-width: 2px; }
+  /* 보드가 board-wrap(전체폭) 안에서 가운데 → 오버레이도 보드 폭에 맞춤(회색 띠 제거) */
+  .overlay { left: 50%; right: auto; transform: translateX(-50%); width: calc(var(--cell) * 10 + 4px); }
+
+  /* MY GOM → 작은 곰 + N/11 칩 (큰 펫박스/로밍 없음) */
+  #bear-stage { display: none; }
+  .gom-pet { display: flex; flex-direction: column; align-items: center; }
+  .gom-pet .pet-box {
+    height: auto; border: none; background: none; padding: 0; margin: 2px 0 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .gom-pet .pet-box img { width: 34px !important; display: block !important; }
+  .gom-pet .pet-out { display: none !important; }
+  .gom-pet .pet-stage { margin-top: 1px; }
 
   .toolbar { margin-top: 8px; padding-top: 8px; gap: 6px; border-top-width: 2px; }
   .toolbar button { font-size: .62rem; padding: 7px 10px; border-width: 2px; }

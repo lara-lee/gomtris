@@ -32,8 +32,8 @@
 
     <!-- 본문 -->
     <div class="layout">
-      <!-- 왼쪽 -->
-      <div class="side">
+      <!-- 정보 한 줄 (HUD) : NEXT · SCORE · LINES · MY GOM(우측) -->
+      <div class="hud">
         <div class="panel">
           <h2>Next</h2>
           <div id="next" class="grid preview"></div>
@@ -43,25 +43,6 @@
           <div id="score" class="stat">0</div>
           <div class="best">BEST <span id="high">0</span></div>
         </div>
-      </div>
-
-      <!-- 가운데: 게임판 -->
-      <div class="board-wrap">
-        <div id="board" class="grid"></div>
-        <div id="overlay" class="overlay show">
-          <div class="overlay-window">
-            <div class="overlay-bar">GOMTRIS</div>
-            <div class="overlay-content">
-              <h3 id="overlay-title">GOMTRIS</h3>
-              <p id="overlay-text">게임을 시작하세요</p>
-              <button id="start" class="primary">게임 시작</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 오른쪽 -->
-      <div class="side">
         <div class="panel">
           <h2>Lines</h2>
           <div id="lines" class="stat">0</div>
@@ -73,6 +54,21 @@
             <div class="pet-out" id="pet-out">너무 커서<br>박스 탈출!</div>
           </div>
           <div class="pet-stage"><b id="gom">1</b><span class="gom-max"> / 11 단계</span></div>
+        </div>
+      </div>
+
+      <!-- 게임판 (메인) -->
+      <div class="board-wrap">
+        <div id="board" class="grid"></div>
+        <div id="overlay" class="overlay show">
+          <div class="overlay-window">
+            <div class="overlay-bar">GOMTRIS</div>
+            <div class="overlay-content">
+              <h3 id="overlay-title">GOMTRIS</h3>
+              <p id="overlay-text">게임을 시작하세요</p>
+              <button id="start" class="primary">게임 시작</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
