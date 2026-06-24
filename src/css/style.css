@@ -85,29 +85,34 @@ h1 {
 /* ===== 레이아웃 ===== */
 /* 세로: HUD(정보 슬림 바) 위, 보드(메인) 아래 */
 .layout { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-/* 한 줄 슬림 바 — 하나의 테두리 안에 NEXT·SCORE·LINES·곰 */
+/* 슬림 세그먼트 바 — 균등 4칸(구분선), 각 칸 가운데 정렬 */
 .hud {
-  display: flex; align-items: center; gap: 24px;
-  border: 3px solid var(--ink); padding: 9px 20px;
+  display: flex; align-items: stretch; justify-content: space-between;
+  border: 3px solid var(--ink);
 }
-.hud-cell { display: flex; flex-direction: column; align-items: flex-start; }
+.hud-cell {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 5px;
+  padding: 10px 8px;
+  border-left: 2px solid #e7e3d8;
+}
+.hud-cell:first-child { border-left: none; }
 .hud-cell h2 {
-  font-size: .56rem; border: none; padding: 0; margin: 0 0 4px;
+  font-size: .56rem; border: none; padding: 0; margin: 0;
   letter-spacing: 1.5px; color: var(--ink); text-transform: uppercase;
 }
 .hud-cell .stat { font-size: 1.4rem; line-height: 1; }
-.hud-cell .best { font-size: .54rem; margin-top: 5px; color: var(--muted); }
+.hud-cell .best { font-size: .52rem; margin: 0; color: var(--muted); }
 .hud-cell .best span { color: var(--ink); }
 .hud-next #next { margin: 0; }
 /* 곰 셀 */
-.hud-gom { margin-left: 4px; }
-.pet-row { display: flex; align-items: center; gap: 7px; }
+.hud-gom .pet-row { display: flex; align-items: center; gap: 6px; }
 .hud .pet-box { height: auto; width: auto; border: none; background: none; padding: 0; overflow: visible; display: flex; align-items: center; }
-.hud .pet-box img { width: 42px !important; height: auto; display: block !important; }
+.hud .pet-box img { width: 40px !important; height: auto; display: block !important; }
 .hud .pet-out { display: none !important; }
 .pet-stage { font-weight: 900; font-size: 1rem; }
 .pet-stage #gom { color: var(--pink); }
-.pet-stage .gom-max { font-size: .66rem; color: var(--muted); }
+.pet-stage .gom-max { font-size: .64rem; color: var(--muted); }
 
 .panel { border: 2px solid var(--ink); padding: 10px 12px; background: var(--card); }
 .panel h2 {
@@ -395,19 +400,16 @@ kbd {
   h1 { font-size: 1.4rem; letter-spacing: 1px; -webkit-text-stroke-width: 1.5px; }
   .tag { font-size: .46rem; padding: 3px 5px; letter-spacing: 1px; }
 
-  /* HUD 슬림 바 (모바일) — 한 줄에 NEXT·SCORE·LINES·곰 */
+  /* HUD 세그먼트 바 (모바일) */
   .layout { gap: 6px; width: 100%; align-items: stretch; }
-  .hud {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 6px; padding: 7px 10px; border-width: 2px;
-  }
-  .hud-cell h2 { font-size: .46rem; margin-bottom: 2px; letter-spacing: .3px; }
-  .hud-cell .stat { font-size: 1.05rem; }
-  .hud-cell .best { font-size: .44rem; margin-top: 2px; }
-  .hud-gom { margin-left: 0; }
-  .hud .pet-box img { width: 32px !important; }
-  .pet-stage { font-size: .82rem; }
-  .pet-stage .gom-max { font-size: .56rem; }
+  .hud { width: 100%; border-width: 2px; }
+  .hud-cell { padding: 7px 3px; gap: 3px; }
+  .hud-cell h2 { font-size: .42rem; letter-spacing: .3px; }
+  .hud-cell .stat { font-size: 1rem; }
+  .hud-cell .best { font-size: .4rem; }
+  .hud .pet-box img { width: 30px !important; }
+  .pet-stage { font-size: .78rem; }
+  .pet-stage .gom-max { font-size: .54rem; }
   #bear-stage { display: none; }
   #board { border-width: 2px; }
   .preview { border-width: 2px; }
