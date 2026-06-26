@@ -64,7 +64,7 @@ class Board {
     return rowsToRemove.length;
   }
 
-  // 하드 드롭: 피스가 바닥까지 내려갈 거리 계산
+  // 피스가 바닥까지 내려갈 거리 (고스트 위치 계산용)
   dropDistance(piece) {
     let dist = 0;
     while (this.isValid(piece, dist + 1, 0)) dist++;

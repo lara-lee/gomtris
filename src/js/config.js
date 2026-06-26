@@ -5,7 +5,7 @@ const CONFIG = {
 
   // 레벨별 낙하 속도(ms): 레벨이 오를수록 빨라짐
   // gravity = BASE_DROP_MS - (level - 1) * STEP, 최소 MIN_DROP_MS
-  BASE_DROP_MS: 800,
+  BASE_DROP_MS: 1000,
   STEP_DROP_MS: 70,
   MIN_DROP_MS: 80,
 
@@ -16,7 +16,6 @@ const CONFIG = {
 
   // 동시 제거 줄 수별 기본 점수 (레벨 n 을 곱함)
   SCORE_TABLE: { 1: 100, 2: 300, 3: 500, 4: 800 },
-  HARD_DROP_BONUS: 2,  // 하드 드롭 시 내려간 칸 당 점수
 
   STORAGE_KEY: 'tetris.highScore',
 };

@@ -106,13 +106,15 @@ class Game {
     }
   }
 
-  hardDrop() {
+  // 빨리 내리기(소프트 드롭): 한 칸 아래로. 바닥이면 잠금은 중력 타이머에 맡김
+  softDrop() {
     if (!this._playable()) return;
-    const dist = this.board.dropDistance(this.piece);
-    this.piece.row += dist;
-    this.score += dist * CONFIG.HARD_DROP_BONUS;
-    Sound.play('hard');
-    this._lock();
+    if (this.board.isValid(this.piece, 1, 0)) {
+      this.piece.row++;
+      this.score += 1;
+      this.dropAcc = 0;
+      this._render();
+    }
   }
 
   rotate(dir = 1) {

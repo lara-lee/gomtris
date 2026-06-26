@@ -85,6 +85,10 @@ window.addEventListener('DOMContentLoaded', () => {
   });
   $pauseBtn.addEventListener('click', () => game.togglePause());
 
+  // 다시시작 (툴바)
+  const $restartBtn = $('restart-btn');
+  if ($restartBtn) $restartBtn.addEventListener('click', () => game.start());
+
   // 나가기(우상단) → 타이틀로 복귀 + 소리 정지
   const $exitBtn = $('exit-btn');
   if ($exitBtn) $exitBtn.addEventListener('click', () => game.quit());

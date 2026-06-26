@@ -2,16 +2,16 @@
 
 function bindInput(game, ui) {
   // ---- 키보드 ----
-  const repeatable = new Set(['ArrowLeft', 'ArrowRight']);
+  const repeatable = new Set(['ArrowLeft', 'ArrowRight', 'ArrowDown']);
   window.addEventListener('keydown', (e) => {
     const handled = {
       ArrowLeft:  () => game.move(-1),
       ArrowRight: () => game.move(1),
-      ArrowDown:  () => game.hardDrop(),   // 바닥까지 드롭 (Space 와 동일)
+      ArrowDown:  () => game.softDrop(),   // 누르고 있으면 빨리 내리기
+      Space:      () => game.softDrop(),   // 스페이스도 빨리 내리기
       ArrowUp:    () => game.rotate(1),
       KeyZ:       () => game.rotate(-1),
       KeyX:       () => game.rotate(1),
-      Space:      () => game.hardDrop(),
       KeyP:       () => game.togglePause(),
       Escape:     () => game.togglePause(),
       KeyR:       () => game.start(),              // 재시작

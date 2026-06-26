@@ -11,7 +11,6 @@ const Sound = {
   synth: {
     move:    [330, 0.03, 'square'],
     rotate:  [440, 0.04, 'square'],
-    hard:    [110, 0.09, 'sawtooth'],
     lock:    [180, 0.05, 'square'],
     clear:   [660, 0.16, 'triangle'],
     tetris:  [880, 0.30, 'triangle'],
