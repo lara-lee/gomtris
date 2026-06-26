@@ -119,7 +119,7 @@ h1 { margin: 0; }
   opacity: 0.4;
 }
 .cell.clearing {
-  animation: flash 0.28s steps(2, start) 2;
+  animation: flash 0.16s steps(2, start) 1;
   background: var(--ink) !important;
   border-color: var(--ink) !important;
 }

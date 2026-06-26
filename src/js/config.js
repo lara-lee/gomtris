@@ -12,7 +12,8 @@ const CONFIG = {
   LINES_PER_LEVEL: 10, // 몇 줄을 지우면 레벨업 하는지
 
   COUNTDOWN_FROM: 3,    // 시작 카운트다운 숫자
-  LINE_CLEAR_MS: 280,   // 줄 제거 애니메이션 시간(ms)
+  LINE_CLEAR_MS: 160,   // 줄 제거 애니메이션 시간(ms)
+  LOCK_DELAY_MS: 180,   // 블록이 바닥에 닿은 뒤 고정되기까지 시간(ms)
 
   // 동시 제거 줄 수별 기본 점수 (레벨 n 을 곱함)
   SCORE_TABLE: { 1: 100, 2: 300, 3: 500, 4: 800 },

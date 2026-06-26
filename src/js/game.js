@@ -34,6 +34,7 @@ class Game {
     this.clearing = false;
     this.running = false;
     this.dropAcc = 0;
+    this.lockTimer = 0;
     this.lastTime = 0;
     this._spawn();
   }
@@ -202,11 +203,16 @@ class Game {
     if (!this.lastTime) this.lastTime = time;
     const delta = time - this.lastTime;
     this.lastTime = time;
-    this.dropAcc += delta;
-    if (this.dropAcc >= this.gravity) {
-      this.dropAcc = 0;
-      if (this.board.isValid(this.piece, 1, 0)) { this.piece.row++; this._render(); }
-      else { this._lock(); }
+
+    if (this.board.isValid(this.piece, 1, 0)) {
+      // 공중: 중력으로 한 칸씩 낙하 (락 딜레이 리셋)
+      this.lockTimer = 0;
+      this.dropAcc += delta;
+      if (this.dropAcc >= this.gravity) { this.dropAcc = 0; this.piece.row++; this._render(); }
+    } else {
+      // 바닥/스택에 닿음: 짧은 락 딜레이 후 즉시 고정
+      this.lockTimer += delta;
+      if (this.lockTimer >= CONFIG.LOCK_DELAY_MS) { this._lock(); }
     }
     requestAnimationFrame(this._tick);
   }
